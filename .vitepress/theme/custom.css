@@ -1,0 +1,220 @@
+/* ============================================================
+   Changning Liu — 个人学术博客 主题定制
+   ============================================================ */
+
+:root {
+  /* 品牌色：沉静青蓝 */
+  --vp-c-brand-1: #2c6e8f;
+  --vp-c-brand-2: #24607d;
+  --vp-c-brand-3: #1f5470;
+  --vp-c-brand-soft: rgba(44, 110, 143, 0.12);
+
+  /* 字体：中文优先 */
+  --vp-font-family-base: 'Inter var', -apple-system, BlinkMacSystemFont,
+    'PingFang SC', 'HarmonyOS Sans SC', 'Source Han Sans SC',
+    'Noto Sans CJK SC', 'Microsoft YaHei', 'Segoe UI', sans-serif;
+  --vp-font-family-mono: 'JetBrains Mono', 'SFMono-Regular', Consolas,
+    'Liberation Mono', Menlo, monospace;
+
+  /* 首页 hero 渐变 */
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: linear-gradient(
+    120deg,
+    #1f5470 0%,
+    #2c6e8f 40%,
+    #3d9bb5 100%
+  );
+  --vp-home-hero-image-background-image: linear-gradient(
+    -45deg,
+    #2c6e8f 30%,
+    #6fc0d8
+  );
+  --vp-home-hero-image-filter: blur(44px);
+
+  --vp-c-bg-alt: #f7f9fa;
+  --vp-c-bg-soft: #f2f5f7;
+
+  --vp-custom-block-tip-border: var(--vp-c-brand-1);
+  --vp-custom-block-tip-bg: rgba(44, 110, 143, 0.06);
+}
+
+.dark {
+  --vp-c-brand-1: #7cc0da;
+  --vp-c-brand-2: #5aa9c6;
+  --vp-c-brand-3: #3d8fad;
+  --vp-c-brand-soft: rgba(124, 192, 218, 0.16);
+
+  --vp-home-hero-name-background: linear-gradient(
+    120deg,
+    #7cc0da 0%,
+    #a5d8e8 50%,
+    #d6eef5 100%
+  );
+
+  --vp-c-bg-alt: #16181d;
+  --vp-c-bg-soft: #1c1f26;
+}
+
+/* ---------- 正文排版 ---------- */
+.vp-doc {
+  font-size: 16px;
+  line-height: 1.85;
+  letter-spacing: 0.01em;
+}
+
+.vp-doc h1 {
+  font-size: 1.9rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.6rem;
+  line-height: 1.35;
+}
+
+.vp-doc h2 {
+  font-size: 1.4rem;
+  font-weight: 650;
+  margin-top: 2.6rem;
+  padding-top: 0.4rem;
+  letter-spacing: -0.005em;
+}
+
+.vp-doc h3 {
+  font-size: 1.14rem;
+  font-weight: 620;
+  margin-top: 1.9rem;
+}
+
+.vp-doc h4 {
+  font-size: 1rem;
+  font-weight: 620;
+  margin-top: 1.5rem;
+}
+
+.vp-doc p {
+  margin: 1rem 0;
+}
+
+.vp-doc li {
+  margin: 0.35rem 0;
+  line-height: 1.8;
+}
+
+/* 引用块：左侧色条 */
+.vp-doc blockquote {
+  border-left: 3px solid var(--vp-c-brand-1);
+  background: var(--vp-c-brand-soft);
+  border-radius: 0 6px 6px 0;
+  padding: 0.6rem 1rem;
+  margin: 1.2rem 0;
+  color: var(--vp-c-text-2);
+}
+
+.vp-doc blockquote p {
+  margin: 0.3rem 0;
+}
+
+/* 表格：斑马纹 + 表头强调 */
+.vp-doc table {
+  border-radius: 8px;
+  overflow: hidden;
+  font-size: 0.94rem;
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.vp-doc th {
+  background: var(--vp-c-brand-soft);
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+.vp-doc tr:nth-child(2n) {
+  background: transparent;
+}
+
+.vp-doc tr:nth-child(2n + 1) {
+  background: var(--vp-c-bg-alt);
+}
+
+/* 行内代码 */
+.vp-doc :not(pre, h1, h2, h3, h4, h5, h6) > code {
+  font-size: 0.88em;
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  background: var(--vp-c-brand-soft);
+  color: var(--vp-c-brand-3);
+  font-weight: 500;
+}
+
+.dark .vp-doc :not(pre, h1, h2, h3, h4, h5, h6) > code {
+  color: var(--vp-c-brand-1);
+}
+
+/* 代码块 */
+.vp-doc div[class*='language-'] {
+  border-radius: 10px;
+  border: 1px solid var(--vp-c-divider);
+}
+
+/* 公式溢出保护 */
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.4rem 0;
+}
+
+/* ---------- 首页 ---------- */
+.VPHero .name {
+  line-height: 1.2;
+}
+
+.VPHero .text {
+  font-size: 34px;
+  line-height: 1.35;
+  font-weight: 600;
+}
+
+.VPHero .tagline {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--vp-c-text-2);
+  max-width: 42rem;
+}
+
+/* Feature 卡片 */
+.VPFeature {
+  border-radius: 12px;
+  border: 1px solid var(--vp-c-divider);
+  transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+}
+
+.VPFeature:hover {
+  border-color: var(--vp-c-brand-1);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(44, 110, 143, 0.1);
+}
+
+.VPFeature .title {
+  font-weight: 650;
+}
+
+/* ---------- 侧边栏 / 导航 ---------- */
+.VPSidebarItem .text {
+  font-size: 0.93rem;
+}
+
+.group .VPSidebarItem.level-0 > .item > .link > .text {
+  font-weight: 650;
+  color: var(--vp-c-text-1);
+}
+
+/* 移动端窄屏优化表格 */
+@media (max-width: 640px) {
+  .vp-doc {
+    font-size: 15.5px;
+  }
+  .VPHero .text {
+    font-size: 27px;
+  }
+}
