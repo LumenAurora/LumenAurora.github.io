@@ -7,7 +7,7 @@ tags:
   - "PyTorch"
   - "工程基础"
   - "自动微分"
-description: "使用PATH拼接路径能够防止出现windows和linux路径格式不兼容问题。 pickle可以将Python绝大多数类型数据变为二进制文件pkl，可以让Python复用，相互传输、断点续训。经常把预处理完的dataset导出。"
+description: "面向 AI 研究的工程入门：路径拼接、序列化、压缩包、PyTorch 数据管线与自动微分的本质（为什么标量求和才能反向传播），以及 Python 语法中容易混淆的点（*args / **kwargs、迭代器、装饰器等）。"
 ---
 
 # Python 与 PyTorch 工程基础

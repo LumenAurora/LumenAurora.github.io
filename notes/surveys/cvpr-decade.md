@@ -6,10 +6,12 @@ tags:
   - "CVPR"
   - "计算机视觉"
   - "领域综述"
-description: "2. “One Transformer to Rule them All”——一个模型通过Prompt处理分类、检测、分割。 3. Zero-shot（零样本）成为论文标配，强调不针对特定任务微调的泛化性。"
+description: "按年份梳理 CVPR 十年的技术主线与关注点迁移。整理自视频 https://www.bilibili.com/video/BV15yGC6LEVw"
 ---
-整理自视频 https://www.bilibili.com/video/BV15yGC6LEVw/?spm_id_from=333.337.search-card.all.click
+
 # CVPR 十年谈
+
+> 按年份梳理 CVPR 十年的技术主线与关注点迁移。整理自视频 https://www.bilibili.com/video/BV15yGC6LEVw
 
 ### 2016年：深度学习的“横扫千军”时代
 #### 1. 重大变化：技术飞跃

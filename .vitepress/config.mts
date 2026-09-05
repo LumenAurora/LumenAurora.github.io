@@ -95,6 +95,10 @@ export default defineConfig({
         {
           text: '机制可解释性',
           items: [
+            { text: '机制可解释性是什么', link: '/notes/interpretability/what-is-mi' },
+            { text: 'Transformer 的条件线性', link: '/notes/interpretability/conditional-linearity' },
+            { text: '特权基', link: '/notes/interpretability/privileged-bases' },
+            { text: '路径分解', link: '/notes/interpretability/path-decomposition' },
             { text: '归因图与特征分解', link: '/notes/interpretability/attribution-graphs' },
             { text: '可解释性全景框架', link: '/notes/interpretability/interpretability-map' },
             { text: '扩散模型的可解释性', link: '/notes/interpretability/diffusion-interpretability' },
@@ -168,6 +172,8 @@ export default defineConfig({
             { text: '如何框定研究问题', link: '/notes/methodology/problem-scoping' },
             { text: '可靠性 Benchmark 研究', link: '/notes/methodology/reliability-benchmark' },
             { text: '审稿维度的系统梳理', link: '/notes/methodology/review-dimensions' },
+            { text: '研究方向地图', link: '/notes/methodology/research-directions-map' },
+            { text: '推理时优化方法分类体系', link: '/notes/methodology/training-free-inference-taxonomy' },
           ],
         },
       ],
@@ -196,6 +202,9 @@ export default defineConfig({
             { text: '以小博大的研究案例', link: '/notes/essays/lean-research' },
             { text: '如何选择研究方向', link: '/notes/essays/choose-direction' },
             { text: '路在何方', link: '/notes/essays/path-forward' },
+            { text: '顶会论文该怎么读', link: '/notes/essays/research-judgment' },
+            { text: '什么才算真正的科研贡献', link: '/notes/essays/what-counts-as-research' },
+            { text: '科学作为天职（韦伯）', link: '/notes/essays/science-as-vocation' },
           ],
         },
       ],
@@ -203,6 +212,7 @@ export default defineConfig({
         {
           text: '视觉语言模型',
           items: [
+            { text: 'VLM 架构演进：从 CLIP 到 LLaVA', link: '/notes/vlm/architecture-evolution' },
             { text: 'VLM 视觉编码全解', link: '/notes/vlm/visual-encoding' },
             { text: 'VLM 评测基准梳理', link: '/notes/vlm/benchmarks' },
           ],

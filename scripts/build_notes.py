@@ -34,6 +34,40 @@ def art(slug, title, srcs, category, tags=None, drops=None,
 
 
 # ============ 机制可解释性 ============
+# ---- 基础长文系列（由 学习/可解释学习.md 按章节拆分，构成一条学习路径）----
+art("interpretability/what-is-mi",
+    "机制可解释性是什么：目标、手段与电路发现流水线",
+    [("学习/可解释学习.md", (1, 81))], "机制可解释性",
+    ["可解释性", "机制可解释性", "电路发现", "入门"],
+    drop_regex=[r"^如果你还想了解.*$"],
+    intro="从「想让人类理解 AI 为什么这么做」这一朴素愿望出发，区分广义可解释性与"
+          "机制性可解释性，并给出这一领域的三层目标（科学认知 / 安全保障 / 工程操控）、"
+          "常用技术手段，以及「电路发现」的五步流水线。")
+
+art("interpretability/conditional-linearity",
+    "Transformer 的条件线性：为什么线性代数能解剖模型",
+    [("学习/可解释学习.md", (82, 135))], "机制可解释性",
+    ["可解释性", "条件线性", "注意力", "残差流"],
+    intro="注意力头的输出是 `A·X·W_V·W_O`：只要把注意力模式 A 「冻结」，"
+          "整个头对输入 X 就是一次纯线性变换。本文解释这个反直觉的事实，"
+          "以及它如何成为归因分析、路径叠加与整套可解释性方法学的地基。")
+
+art("interpretability/privileged-bases",
+    "特权基：为什么 Transformer 的某些坐标轴是可解释的",
+    [("学习/可解释学习.md", (136, 315))], "机制可解释性",
+    ["可解释性", "特权基", "非线性", "旋转不变性"],
+    intro="向量空间的坐标轴本来是任意贴上去的，但非线性操作（逐元素激活、Softmax）"
+          "会打破旋转对称性，从而「挑出」某些特殊方向 —— 这就是特权基。"
+          "本文说明它为何让逐神经元分析重新变得有意义。")
+
+art("interpretability/path-decomposition",
+    "路径分解：把 Transformer 展开成一串虚拟权重",
+    [("学习/可解释学习.md", (316, 543))], "机制可解释性",
+    ["可解释性", "路径分解", "虚拟权重", "Induction Head"],
+    intro="利用残差流的线性性，可以把一整个（去除 MLP 的）Transformer 展开成"
+          "「路径之和」：先合成虚拟权重，再解剖 QK 电路与 OV 电路，"
+          "最后用 skip-trigram 与 Induction Head 两个真实例子走完全流程。")
+
 art("interpretability/attribution-graphs",
     "归因图、特征分解与 QK 归因：Transformer 可解释性方法入门",
     [("学习/可解释博文.md", None)], "机制可解释性",
@@ -206,6 +240,24 @@ art("methodology/review-dimensions",
           "隐性、元层面问题，整理成一份可检索的清单。既可用于投稿前预判审稿意见，"
           "也可用于审稿人自我校准评审角度。")
 
+art("methodology/research-directions-map",
+    "不动预训练，普通科研人员还能做什么：研究方向地图",
+    [("想法/大模型能做的方法.md", (1, 467))], "研究方法论",
+    ["研究方向", "领域地图", "PEFT", "RAG", "模型压缩"],
+    intro="预训练基座动不了，可研究的空间依然很大 —— 这恰恰是当前的主战场。"
+          "本文按 PEFT、提示工程、RAG、推理优化与压缩、数据工程、Agent、对齐与后训练、"
+          "评测、多模态、可解释性、测试时策略、模型编辑、模型系统等方向，"
+          "系统梳理每个方向的核心思想、硬件需求与科研切入点。")
+
+art("methodology/training-free-inference-taxonomy",
+    "推理时即插即用优化方法的完整分类体系",
+    [("想法/大模型能做的方法.md", (468, 1331))], "研究方法论",
+    ["推理优化", "Training-Free", "分类体系", "解码策略"],
+    intro="不训练、只改推理过程，究竟能优化到什么程度？本文给出一份"
+          " LLM / VLM 推理时 training-free 方法的完整分类框架：提示输入层、"
+          "模型内部推理干预、解码策略、推理增强、后处理与验证、多模型协作、"
+          "VLM 特有优化、计算效率与特殊场景，共九大类，并附开销—收益权衡。")
+
 # ============ 领域综述 ============
 art("surveys/icml-decade",
     "ICML 十年脉络",
@@ -217,7 +269,11 @@ art("surveys/icml-decade",
 art("surveys/cvpr-decade",
     "CVPR 十年谈",
     [("论文历史/CVPR十年谈.md", None)], "领域综述",
-    ["CVPR", "计算机视觉", "领域综述"])
+    ["CVPR", "计算机视觉", "领域综述"],
+    # 注意：源文件整理自该视频。此归属曾由手工直接改到生成文件上，
+    # 重建时被覆盖，因此固化在此处，避免再次丢失。
+    intro="按年份梳理 CVPR 十年的技术主线与关注点迁移。"
+          "整理自视频 https://www.bilibili.com/video/BV15yGC6LEVw")
 
 art("surveys/gnn-evolution",
     "图神经网络的演进",
@@ -282,6 +338,29 @@ art("essays/path-forward",
     [("你还想学吗/路在何方.md", None)], "随笔",
     ["研究方向", "科研"])
 
+art("essays/research-judgment",
+    "大模型时代，顶会论文该怎么读",
+    [("你还想学吗/大人，时代变了.md", None)], "随笔",
+    ["论文阅读", "研究品味", "大模型", "初学者"],
+    intro="传统深度学习时代读论文，学的是「模块怎么缝合」；大模型时代模块所剩无几，"
+          "那读顶会还能学到什么？本文给出分析类、Benchmark 类、方法类论文各自的学法，"
+          "以及一套读完即可自测的四问清单 —— 大模型时代的论文训练的是研究判断力，而非技术工具箱。")
+
+art("essays/what-counts-as-research",
+    "什么才算真正的科研贡献",
+    [("方向与道路/意义在何.md", (1, 244))], "随笔",
+    ["科研评价", "研究贡献", "机器人学", "算力约束"],
+    intro="「轻量化研究到底有没有价值？」这个困惑，往往源于用 NLP / CV 的「刷点」框架"
+          "去理解另一套评价体系。本文给出贡献的六种类型、机器人顶会审稿标准的权重排序，"
+          "以及在有限算力下应该玩什么样的游戏。")
+
+art("essays/science-as-vocation",
+    "科学作为天职：韦伯《Science as a Vocation》要点",
+    [("你还想学吗/叩开科学的门扉？.md", None)], "随笔",
+    ["科学哲学", "韦伯", "学术志业", "阅读笔记"],
+    intro="马克斯·韦伯 1917 年慕尼黑演讲的要点整理：以学术为业的外部风险、"
+          "祛魅时代科学的意义、课堂上的价值中立，以及从事科学所需的激情、灵感与人格。")
+
 # ============ 视觉语言模型 ============
 art("vlm/visual-encoding",
     "VLM 视觉编码全解：从固定分辨率到原生分辨率",
@@ -298,6 +377,16 @@ art("vlm/benchmarks",
     ["VLM", "Benchmark", "评测", "Agent"],
     intro="以一篇 VLM 技术报告为线索，梳理视觉编码器、RL 训练、多模态 Agent 各阶段常用的评测基准，"
           "并归纳出基础感知、跨模态对齐、多模态推理、多模态编码 / 工具使用、端到端 Agent 五大能力维度。")
+
+art("vlm/architecture-evolution",
+    "VLM 融合对齐的架构演进：从 CLIP 到 LLaVA 与原生多模态",
+    [("论文笔记/视觉语言模型.md", None)], "视觉语言模型",
+    ["VLM", "多模态", "CLIP", "LLaVA", "Q-Former", "架构演进"],
+    drop_regex=[r"^!\[\["],
+    intro="以「怎样把视觉信息融合进语言模型」为主线，梳理 VLM 的架构演进："
+          "从双塔对比的 CLIP、引入 cross-attention 的 ALBEF / BLIP、"
+          "用 Q-Former 做桥梁的 BLIP-2、极简投影的 LLaVA，一直到端到端的原生多模态，"
+          "并给出各条路线的优缺点与当前社区共识。")
 
 # ============ 工程与应用 ============
 art("engineering/python-pytorch",
@@ -322,6 +411,12 @@ RE_WIKILINK = re.compile(r"\[\[([^\]|]+)(?:\|([^\]]+))?\]\]")
 RE_HIGHLIGHT = re.compile(r"==([^=]+)==")
 RE_CALLOUT = re.compile(r"^(\s*)>\s*\[!(\w+)\]([+-]?)\s*(.*)$")
 RE_FM_DELIM = re.compile(r"^---\s*$")
+# Obsidian 图片嵌入残留：形如 ![[Pasted image xxx.png]] 或剥离 wikilink 后的
+# !学习/attachments/Pasted image xxx.png —— 图片不在仓库内，必须整行剔除
+RE_EMBED_LEFT = re.compile(
+    r"^!.*(?:Pasted image|attachments/|\.(?:png|jpe?g|gif|svg|webp))",
+    re.IGNORECASE,
+)
 
 
 def clean_wikilink(m):
@@ -364,6 +459,9 @@ def clean_text(lines, drop_regex):
                 out.append(ln)
                 continue
         if in_front:
+            continue
+        # 图片嵌入残留整行剔除（不计入「已见正文」，避免污染 frontmatter 判定）
+        if RE_EMBED_LEFT.match(ln.strip()):
             continue
         if ln.strip():
             seen_content = True
@@ -482,7 +580,14 @@ def build():
             print(f"[内容过短，跳过] {a['slug']} ({len(body_text)} 字符)")
             continue
 
-        desc = make_description(lines)
+        # 有人工撰写的 intro 时优先用它做摘要（比机器抽取的首段更凝练）；
+        # 否则退回自动抽取。
+        if a["intro"]:
+            desc = re.sub(r"\s+", " ", a["intro"]).strip()
+            if len(desc) > 150:
+                desc = desc[:150].rstrip("，。、；：,;: ") + "……"
+        else:
+            desc = make_description(lines)
         date = (newest or datetime.datetime.now()).strftime("%Y-%m-%d")
 
         fm = ["---", f"title: {yaml_str(a['title'])}", f"date: {date}"]

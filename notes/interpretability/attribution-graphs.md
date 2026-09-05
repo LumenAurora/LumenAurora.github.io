@@ -7,7 +7,7 @@ tags:
   - "Transformer"
   - "归因图"
   - "SAE"
-description: "输入是一段文本，例如 \"I always loved visiting Aunt Sally.\" 这段文本会被切分成若干词元（token），每个词元是模型词汇表中的一个索引。假设序列长度为 \\( T \\)，词元为 \\( x_1, x_2, \\dots, x_T \\)。每个词元被赋予一个固定的位置索引……"
+description: "这是一份从零开始的 Transformer 可解释性方法说明书：把一次前向传播拆开，讲清楚归因图（attribution graphs）、特征分解与 QK 归因分别在做什么、彼此如何衔接。"
 ---
 
 # 归因图、特征分解与 QK 归因：Transformer 可解释性方法入门
