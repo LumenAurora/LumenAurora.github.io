@@ -1,9 +1,10 @@
 ---
 layout: home
+title: Changning Liu 的个人博客
 hero:
   name: Changning Liu
-  text: ""
-  tagline: 机制可解释性 · 生成模型 · 表征学习，以及做研究的方法论笔记
+  text: 关于 AI 的笔记与思考
+  tagline: 机制可解释性 · 生成模型 · 表征学习，以及做研究的方法论
   actions:
     - theme: brand
       text: 开始阅读

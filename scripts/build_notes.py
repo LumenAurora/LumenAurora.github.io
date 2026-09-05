@@ -195,7 +195,8 @@ art("methodology/problem-scoping",
 art("methodology/reliability-benchmark",
     "可靠性 Benchmark 研究",
     [("论文之道/可靠性benchmark研究.md", None)], "研究方法论",
-    ["Benchmark", "可靠性", "评测"])
+    ["Benchmark", "可靠性", "评测"],
+    drop_regex=[r"^Critique Request.*$", r"^Identify specific ways.*$"])
 
 art("methodology/review-dimensions",
     "审稿维度的系统梳理",
