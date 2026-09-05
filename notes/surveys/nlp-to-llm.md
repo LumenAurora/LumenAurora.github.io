@@ -20,6 +20,43 @@ test-time compute已经火了两年了，再对LLM做就搞不出来了。VLM视
 
 下面我按你喜欢的 CVPR 年鉴风格，给一个我认为更贴近 2026（已发生/正在发生）与 2027（高概率走向）的版本。
 
+---
+
+### 2026年：推理“可验证化”与智能体“工程化”年（Verification & Agent Engineering）
+#### 1) 范式地位：NLP 从“会说”转向“能交付”
+2026 的 ACL 体系已经在会议/工作坊层面把关注点写得很直白：**结构化理解 + 检索 + 生成**、**知识型基础模型**、以及**生成系统的评测与指标**都在做独立聚合。比如 ACL 2026 的相关 workshop 明确聚焦“Structured Understanding, Retrieval, and Generation in the LLM Era”、以及 “Towards Knowledgeable Foundation Models”等主题。   
+同时，GEM@ACL 2026 直接把“使用 LLM 的社会技术系统评测”写进征稿范围，说明“把系统测明白”已经是显学。 
+
+#### 2) 重大变化：技术飞跃（不是更大，而是更“可控/可验”）
+**(a) Test-time compute + Verifier** 成为推理提升的主杠杆之一  
+2025 ICLR 已经系统讨论“推理时增加计算（搜索、验证器等）”可能比单纯扩参数更有效。   
+到 2026 ICLR，出现了更明确的“**过程验证器（process verifier）不完美怎么办**”的算法化工作：把生成当成在“部分解空间树”上的随机游走，并引入概率回溯来提升对验证器错误的鲁棒性（VGB / backtracking 视角）。   
+这背后其实是一个范式迁移：  
+- 过去：靠训练把“对的答案”压到更高概率。  
+- 现在：默认模型会犯错，于是把“**推理当作搜索 + 过程打分 + 回溯修正**”来做（更像算法系统，而不只是一个前向网络）。
+
+**(b) “长上下文/记忆”从卖点变成硬评测课题**  
+ICLR 2026 出现了直接面向“长期对话记忆系统”的基准（比如 BEAM benchmark 面向多轮、多会话、不同能力维度评测记忆）。   
+同时也有更“可诊断”的长推理基准思路：把长度、难度、干扰项密度拆开控制，以便回答“模型到底是被长度拖死、被干扰拖死，还是本质推理不行”。（例如 CogniLoad 这种可调参的 reasoning benchmark。）   
+这很关键：**当上下文变长，错误类型会从‘不会’变成‘会胡编并且你很难定位它哪一步开始偏’**，于是评测与诊断先于模型改进成为瓶颈。
+
+#### 3) 核心研究模式：Verifier/LongContext/Agent-Everything
+如果用你那种“Everything 模式”总结，2026 的 NLP 更像三股合流：
+
+1) **Verifier-Everything**：推理用“过程验证/搜索/回溯”来拿增益（把推理当计算预算问题）。   
+2) **LongContext-Everything**：不再只报“支持 128K/1M token”，而是开始认真做“有效长度”和“诊断性基准”。   
+3) **Agent-Everything**：NLP 的“应用形态”变成 agent：会用工具、会规划、会与环境交互。这个趋势甚至被 EMNLP 2026 的 workshop 直接命名为“Agent Language Models”并围绕 tool use、RAG、memory、planning、安全等方向组织议题。   
+
+#### 4) 题目特点与命名流行语（2026 版）
+- 标题气质从 “Improving X” 变成：  
+  - `Test-time`、`Verifier`、`Backtracking`、`Long-context reasoning`、`Memory benchmark`、`Agent`、`Tool-use`、`RAG`  
+- 你会看到越来越多论文把贡献写成：  
+  - “给你一个基座模型 + 一套推理时算法/验证器/环境交互协议”，而不是“我训练了一个新模型”。
+
+#### 5) 年度总结词
+> “2026 的 NLP 不再追求‘更会说’，而是追求‘说得对、能证明、出了错能定位’。”
+
+---
 
 ### 2027年（高概率走向）：从“会用工具”到“可验证的行动系统”（Verifiable Agents & Auditable Reasoning）
 2027 还没发生，所以我只能基于 2025–2026 已经很明确的信号做推演（不装确定性）。我认为 2027 最可能出现的是：**研究对象继续从“模型能力”外扩到“行动系统的可靠性与审计性”**。

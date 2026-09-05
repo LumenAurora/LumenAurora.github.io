@@ -15,6 +15,25 @@ description: "采样！强化学习的得分不可回传梯度流，而监督学
 采样！强化学习的得分不可回传梯度流，而监督学习可以！
 ### 🔗 从头讲透：梯度流、采样与不可微的断裂
 
+---
+
+### 一、先回到最本质的问题：什么是"梯度能流过去"？
+
+#### 反向传播的本质就是链式法则
+
+假设你有一个简单的计算链：
+
+$$x \xrightarrow{f} h \xrightarrow{g} y \xrightarrow{L(\cdot)} \text{loss}$$
+
+你要求 $\frac{\partial L}{\partial x}$，链式法则告诉你：
+
+$$\frac{\partial L}{\partial x} = \frac{\partial L}{\partial y} \cdot \frac{\partial y}{\partial h} \cdot \frac{\partial h}{\partial x}$$
+
+**每一环都必须能算出偏导数**，梯度才能一环一环地传回去。
+
+这就像**多米诺骨牌**：每一块倒下推动前一块，如果中间有一块**缺失**，链条就断了。
+
+---
 
 ### 二、用具体例子看"可微"和"不可微"
 

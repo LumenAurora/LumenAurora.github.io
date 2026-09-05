@@ -83,6 +83,8 @@ export default defineConfig({
       },
       { text: '研究方法论', link: '/notes/methodology/benchmark-writing' },
       { text: '领域综述', link: '/notes/surveys/icml-decade' },
+      { text: '视觉语言模型', link: '/notes/vlm/visual-encoding' },
+      { text: '工程与应用', link: '/notes/engineering/python-pytorch' },
       { text: '随笔', link: '/notes/essays/complex-systems' },
       { text: '归档', link: '/archive' },
       { text: '关于', link: '/about' },
@@ -194,6 +196,24 @@ export default defineConfig({
             { text: '以小博大的研究案例', link: '/notes/essays/lean-research' },
             { text: '如何选择研究方向', link: '/notes/essays/choose-direction' },
             { text: '路在何方', link: '/notes/essays/path-forward' },
+          ],
+        },
+      ],
+      '/notes/vlm/': [
+        {
+          text: '视觉语言模型',
+          items: [
+            { text: 'VLM 视觉编码全解', link: '/notes/vlm/visual-encoding' },
+            { text: 'VLM 评测基准梳理', link: '/notes/vlm/benchmarks' },
+          ],
+        },
+      ],
+      '/notes/engineering/': [
+        {
+          text: '工程与应用',
+          items: [
+            { text: 'Python 与 PyTorch 工程基础', link: '/notes/engineering/python-pytorch' },
+            { text: 'AI 在金融领域的非平稳性难题', link: '/notes/engineering/ai-in-finance' },
           ],
         },
       ],

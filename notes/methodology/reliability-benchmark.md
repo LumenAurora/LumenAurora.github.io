@@ -13,6 +13,27 @@ description: "这是一个非常系统性的研究方法论问题。我将基于
 
 这是一个非常系统性的研究方法论问题。我将基于上述50篇论文，完整拆解**"面向Judge评测的Benchmark构建全流程"**。
 
+---
+
+## 一、Benchmark构建的整体框架（Meta-Process）
+
+```
+研究动机与问题定义
+        ↓
+评测维度设计（What to measure）
+        ↓
+数据收集与问题制作（How to build）
+        ↓
+标注流程设计（How to label）
+        ↓
+指标定义与量化（How to measure）
+        ↓
+有效性验证（How to prove）
+        ↓
+分析实验与Findings（What we learn）
+```
+
+---
 
 ## 二、第一步：研究动机定位——"为什么要做这个Benchmark"
 

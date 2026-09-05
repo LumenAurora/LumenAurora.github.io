@@ -93,6 +93,16 @@ AI Judge评测的应用：
 
 下面我给你一个**可操作的设计框架**，然后给出一批**天然“强 oracle / 强 reward”的安全子方向课题模板**（每个都能落到明确的任务、开放数据、可执行评分器、可训练 reward）。
 
+---
+
+### 一、把“明确、可信、有效、可靠”落到工程上：Benchmark 设计的 6 条硬标准
+
+#### 1) 输出必须可结构化 + 可规范化（canonicalize）
+不要让 agent 输出长文本再用 LLM judge 打分；要让它输出**严格 schema 的 JSON**，并做 canonicalization（排序、去重、大小写、时间格式、域名/IP 规范化），这样评分器才稳定。
+
+**例**：输出 `{"hosts":[...], "time_window":[t0,t1], "evidence":[{"table":"DeviceEvents","row_id":123,...}]}`。
+
+---
 
 #### 2) 评分 oracle 以“可执行验证”为上限，以“确定性判分”为下限
 安全领域最好用四类 oracle（从强到弱）：

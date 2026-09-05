@@ -13,6 +13,11 @@ description: "好的！基于大量已发表论文、综述（如Zhou et al. 202
 
 好的！基于大量已发表论文、综述（如Zhou et al. 2020《图神经网络综述》，Wu et al. 2019《图神经网络综合研究》，Bronstein et al. 2021《几何深度学习》）、顶会论文（ICLR/NeurIPS/ICML/KDD/SIGIR）及工业界技术报告（Pinterest PinSage、Google AlphaFold、DeepMind等），以下是图神经网络（GNN）近十年的完整发展历程：
 
+---
+
+## 图神经网络（GNN）十年历程全景（2015–2025）
+
+---
 
 ### 2015–2016年：史前开拓期（Spectral Awakening）
 

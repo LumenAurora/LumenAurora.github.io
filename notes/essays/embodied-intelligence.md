@@ -15,6 +15,96 @@ https://mp.weixin.qq.com/s/_M6g6gbQ0iweu2bS7Uymkg 跨机器、跨本体统一大
 ## 领域地图
 这是一个仍在快速演化、尚未有统一"金标准"分类的领域。由2026年为止，世界模型研究尚未形成单一分类体系，而是通常从三个互补的维度来看待。下面尝试给出一套**多轴交叉、层层细分**的体系：先按"研究对象/任务类型"纵向切分（这是最直观的、能落到VLN粒度的维度），再按"技术范式""能力层级""应用领域"等横向轴做交叉标注，以尽量做到不重不漏。
 
+---
+
+### 一、具身智能（Embodied AI）
+
+#### 1. 具身感知（Embodied Perception）
+- 1.1 主动视觉感知（Active Perception，含视点选择、下一最佳视角）
+- 1.2 3D场景重建与理解（NeRF/3D Gaussian Splatting建图、场景图构建）
+- 1.3 语义建图（Semantic Mapping）——针对室内环境的进展、挑战与方向研究
+- 1.4 触觉/力觉感知（Tactile & Force Sensing）
+- 1.5 多模态传感融合感知（视觉+激光雷达+触觉+本体感知）
+- 1.6 开放词汇/开放世界感知（Open-Vocabulary Perception）
+- 1.7 面向具身智能的视觉表征学习（"人工视觉皮层"式通用视觉backbone）
+
+#### 2. 具身导航（Embodied Navigation）—— VLN 及同级任务族
+- 2.1 点目标导航（PointNav）
+- 2.2 物体目标导航（ObjectNav）
+- 2.3 视觉-语言导航（VLN, Vision-and-Language Navigation）
+  - 2.3.1 离散图节点式VLN（如R2R，基于全景图导航图）
+  - 2.3.2 连续环境VLN（VLN-CE）
+  - 2.3.3 空中VLN（Aerial VLN）
+  - 2.3.4 户外/城市VLN（Outdoor/Urban VLN）
+  - 2.3.5 面向真实世界部署的在线视觉语言建图式VLN
+- 2.4 视觉-对话导航（Vision-and-Dialog Navigation, CVDN）
+- 2.5 远程具身指代表达导航（REVERIE）—— 在真实室内环境中解析远程具身视觉指代表达的导航任务，以及基于交互式提示改进的变体
+- 2.6 需求驱动导航（Demand-driven Navigation）—— 学习需求条件下的物体属性空间以实现需求驱动导航
+- 2.7 视听导航（Audio-Visual Navigation）
+- 2.8 社交/人群感知导航（Social / Human-aware Navigation）—— 面向人类共处环境的导航综述方向
+- 2.9 具身问答（Embodied Question Answering, EQA）
+- 2.10 开放世界主动探索（Active Exploration in Unknown Environments）
+- 2.11 偏差鲁棒/抗扰动导航（Deviation-robust Navigation）
+
+#### 3. 具身操作/操纵（Embodied Manipulation）
+- 3.1 抓取（Grasping：2D平面抓取、6D位姿抓取）
+- 3.2 灵巧操作（Dexterous Manipulation，多指手）
+- 3.3 双臂协同操作（Bimanual Manipulation）
+- 3.4 移动操作（Mobile Manipulation）——开放词汇移动操作
+- 3.5 可变形/柔性物体操作（Deformable Object Manipulation）
+- 3.6 工具使用与功能可供性驱动操作（Tool Use / Affordance-driven Manipulation）
+- 3.7 长时程多步骤任务操作（Long-horizon Manipulation）
+- 3.8 接触丰富/力控精细操作（Contact-rich & Force-controlled Manipulation）
+- 3.9 语言指令关联的连续状态任务学习（如语言接地的连续场景任务）
+
+#### 4. 具身交互（Embodied Interaction）
+- 4.1 具身指令跟随（Embodied Instruction Following, EIF）—— 交互式指令跟随的多层次组合推理
+- 4.2 对话使能的具身智能体（Dialogue-enabled Embodied Agents）—— 对话使能的智能体用于具身指令跟随
+- 4.3 交互式纠错/追问式引导（Interactive Prompting/Correction）—— 交互式提示用于远程具身指代表达任务的对话式修正
+- 4.4 人机协作与人机共融（Human-Robot Collaboration）
+- 4.5 社会具身智能（Socially-aware Embodied Agents）
+
+#### 5. 具身决策与控制架构（Embodied Decision-Making & Control）
+- 5.1 视觉-语言-动作模型（VLA, Vision-Language-Action Models）
+  - 5.1.1 端到端整体式VLA
+  - 5.1.2 分层式VLA（高层语义规划 + 低层运动控制）
+  - 5.1.3 扩散策略（Diffusion Policy）
+  - 5.1.4 动作token化范式（Action Tokenization）
+  - 5.1.5 混合专家/层跳跃式高效VLA（如动态跳层VLA）
+  - 5.1.6 面向自动驾驶的VLA
+- 5.2 任务与运动规划（TAMP, Task and Motion Planning）
+- 5.3 面向具身控制的强化学习（含深度强化学习在机器人上的应用）
+- 5.4 模仿学习/示教学习（Imitation Learning, 含低成本硬件下的精细双臂操作学习）
+- 5.5 Sim-to-Real迁移与域随机化
+- 5.6 自我反思与策略级优化智能体（Self-reflective / Policy-level Reflection Agents）
+- 5.7 神经科学启发的"类脑"具身智能体架构（Neuroscience-inspired Embodied Frameworks）
+
+#### 6. 具身推理（Embodied Reasoning）
+- 6.1 空间关系推理（Spatial Reasoning）
+- 6.2 功能可供性推理（Affordance Reasoning）
+- 6.3 物理常识/物理可行性推理
+- 6.4 因果推理（Causal Reasoning）
+- 6.5 长时程任务分解与子目标规划推理
+
+#### 7. 本体形态与硬件（Embodiment & Morphology）
+- 7.1 人形机器人（Humanoid Robots）
+- 7.2 足式/轮式移动本体（Legged/Wheeled Platforms）
+- 7.3 软体机器人（Soft Robotics）
+- 7.4 形态-控制协同设计/进化（Morphology-Control Co-design）
+- 7.5 跨本体迁移学习（Cross-embodiment Transfer，如大规模跨机器人数据集训练）
+
+#### 8. 仿真平台与评测基准（Simulators & Benchmarks）
+- 8.1 室内仿真器（AI2-THOR、Habitat、iGibson类）
+- 8.2 物理引擎仿真（Isaac Sim、MuJoCo、SAPIEN类）
+- 8.3 城市/户外大规模仿真平台
+- 8.4 面向导航/操作/交互的标准化评测基准
+
+#### 9. 垂直应用领域（Domain-specific Embodied AI）
+- 9.1 自动驾驶中的具身决策
+- 9.2 医疗具身智能（Embodied AI in Healthcare）
+- 9.3 工业具身智能（Embodied Intelligent Industrial Robotics）
+
+---
 
 ### 二、世界模型（World Models）
 

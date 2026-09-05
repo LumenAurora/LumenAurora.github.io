@@ -282,6 +282,40 @@ art("essays/path-forward",
     [("你还想学吗/路在何方.md", None)], "随笔",
     ["研究方向", "科研"])
 
+# ============ 视觉语言模型 ============
+art("vlm/visual-encoding",
+    "VLM 视觉编码全解：从固定分辨率到原生分辨率",
+    [("产业/VLM.md", None)], "视觉语言模型",
+    ["VLM", "视觉编码", "AnyRes", "M-RoPE", "NaFlex", "动态分辨率"],
+    drop_regex=[r"^好的，现在我有了充足的资料", r"上一轮回复中详细讲解"],
+    intro="系统梳理视觉语言模型中「如何处理任意尺寸图像」这一核心工程问题：从固定分辨率的局限，"
+          "到 AnyRes 切块、混合编码器、原生分辨率（NaViT / NaFlex / Qwen2-VL），"
+          "再到视觉 Token 压缩的五大路线，并给出横向对比与选型指南。")
+
+art("vlm/benchmarks",
+    "VLM 评测基准梳理（以 GLM-5V-Turbo 为例）",
+    [("产业/Bench.md", None)], "视觉语言模型",
+    ["VLM", "Benchmark", "评测", "Agent"],
+    intro="以一篇 VLM 技术报告为线索，梳理视觉编码器、RL 训练、多模态 Agent 各阶段常用的评测基准，"
+          "并归纳出基础感知、跨模态对齐、多模态推理、多模态编码 / 工具使用、端到端 Agent 五大能力维度。")
+
+# ============ 工程与应用 ============
+art("engineering/python-pytorch",
+    "Python 与 PyTorch 工程基础",
+    [("AI编程/代码能力.md", None)], "工程与应用",
+    ["Python", "PyTorch", "工程基础", "自动微分"],
+    drop_regex=[r"^!\[\[Pasted image"],
+    intro="面向 AI 研究的工程入门：路径拼接、序列化、压缩包、PyTorch 数据管线与自动微分的本质"
+          "（为什么标量求和才能反向传播），以及 Python 语法中容易混淆的点"
+          "（*args / **kwargs、迭代器、装饰器等）。")
+
+art("engineering/ai-in-finance",
+    "AI 在金融领域的非平稳性难题与应对思路",
+    [("量化AI/量化AI的大问题.md", None)], "工程与应用",
+    ["量化金融", "非平稳性", "协整", "机制转换", "AI 应用"],
+    intro="AI（无论是监督学习还是强化学习）隐含平稳性假设，而金融市场天生非平稳。"
+          "本文梳理在金融中「寻找不变性」的几条出路：风格化事实、协整关系、机制转换、因果关系，"
+          "以及元学习 / 序贯学习等方法论层面的适应策略。")
 
 # ---------------------------------------------------------------- 清洗规则
 RE_WIKILINK = re.compile(r"\[\[([^\]|]+)(?:\|([^\]]+))?\]\]")
@@ -313,20 +347,26 @@ def clean_callout(m):
 
 def clean_text(lines, drop_regex):
     out = []
+    fm_started = False
     in_front = False
-    fm_count = 0
+    seen_content = False
     for ln in lines:
-        # 去掉源文件自带的 YAML frontmatter
+        # 去掉源文件自带的 YAML frontmatter（仅当 --- 出现在文件最开头时才算）
         if RE_FM_DELIM.match(ln):
-            fm_count += 1
-            if fm_count == 1:
+            if not fm_started and not seen_content:
+                fm_started = True
                 in_front = True
                 continue
-            elif fm_count == 2:
+            elif fm_started and in_front:
                 in_front = False
+                continue
+            else:
+                out.append(ln)
                 continue
         if in_front:
             continue
+        if ln.strip():
+            seen_content = True
 
         # 正则删除
         hit = False
