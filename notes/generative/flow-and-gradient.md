@@ -174,15 +174,15 @@ Attention 机制本质上是一个加权和：$h_l = \sum_i \text{Attn}_{l \to i
 
 ### 一、AttnRes 的精确公式
 
-根据官方仓库和论文，AttnRes 把标准残差的固定累加替换为对所有先前层输出的 softmax 加权求和【turn0search4】：
+根据官方仓库和论文，AttnRes 把标准残差的固定累加替换为对所有先前层输出的 softmax 加权求和：
 
 $$ h_l = \sum_{i=0}^{l-1} \alpha_{i \to l} \cdot v_i $$
 
-其中 $v_i$ 是第 $i$ 层的输出（block 版本中是块级表示），$\alpha_{i \to l}$ 通过一个**每层可学习的伪查询** $w_l \in \mathbb{R}^d$ 计算【turn0search3】：
+其中 $v_i$ 是第 $i$ 层的输出（block 版本中是块级表示），$\alpha_{i \to l}$ 通过一个**每层可学习的伪查询** $w_l \in \mathbb{R}^d$ 计算：
 
 $$ \alpha_{i \to l} = \text{softmax}_i\left( \frac{w_l \cdot \text{Norm}(v_i)}{\text{temperature}} \right) $$
 
-关键代码片段（仓库伪代码）确认了这一点【turn0search4】：
+关键代码片段（仓库伪代码）确认了这一点：
 ```python
 K = norm(V)
 logits = torch.einsum('d, n b t d -> n b t', proj.weight.squeeze(), K)
@@ -215,19 +215,19 @@ $$ \frac{\partial \mathcal{L}}{\partial v_j} = \sum_{l > j} \frac{\partial \math
 
 这看起来像是衰减的，因为 $\alpha_{j\to l} \le 1$。**但关键在于：$\partial \mathcal{L}/\partial h_l$ 本身不再爆炸式增长。**
 
-在标准 PreNorm + 残差里，隐藏态范数随深度增长 $\|h_l\| \sim \mathcal{O}(L)$（这就是论文说的 PreNorm dilution），导致深层的 $\partial \mathcal{L}/\partial h_l$ 被巨大的范数裹挟，反而稀释了浅层贡献的相对梯度。AttnRes 用 $\sum \alpha = 1$ 的凸组合把 $\|h_l\|$ 钉在有界范围内，$\partial \mathcal{L}/\partial h_l$ 不会随深度膨胀，于是 **$\alpha$ 的衰减被 $h$ 范数的稳定所抵消**，整体梯度分布实测更均匀【turn0search4】。
+在标准 PreNorm + 残差里，隐藏态范数随深度增长 $\|h_l\| \sim \mathcal{O}(L)$（这就是论文说的 PreNorm dilution），导致深层的 $\partial \mathcal{L}/\partial h_l$ 被巨大的范数裹挟，反而稀释了浅层贡献的相对梯度。AttnRes 用 $\sum \alpha = 1$ 的凸组合把 $\|h_l\|$ 钉在有界范围内，$\partial \mathcal{L}/\partial h_l$ 不会随深度膨胀，于是 **$\alpha$ 的衰减被 $h$ 范数的稳定所抵消**，整体梯度分布实测更均匀。
 
 #### 3. 结论：不是经典意义下的梯度消失
 
 经典梯度消失是"雅可比谱半径 < 1 连乘导致指数衰减"。AttnRes 的雅可比不是连乘结构（每层都是从所有历史层直接加权，不是链式），而是一个**广播式的稀疏连接**：第 $j$ 层的梯度通过所有 $\alpha_{j\to l}$（$l>j$）同时回传，不是只走一条 $l \to l-1 \to \dots \to j$ 的窄路。这种"多路径并行回传"结构天然抑制了指数衰减。
 
-但它有另一种风险：**如果 $\alpha$ 学成均匀分布（初始化不好时容易出现），则 $h_l \approx \frac{1}{l}\sum v_i$，表征会发生均值坍塌**，这虽然不是梯度消失，却是表征消失。Ziming Liu 的分析就指出了这个 uniform bias 问题【turn0search3】。
+但它有另一种风险：**如果 $\alpha$ 学成均匀分布（初始化不好时容易出现），则 $h_l \approx \frac{1}{l}\sum v_i$，表征会发生均值坍塌**，这虽然不是梯度消失，却是表征消失。Ziming Liu 的分析就指出了这个 uniform bias 问题。
 
 ---
 
 ### 三、Block AttnRes：真正的工程兜底
 
-值得注意的是，Kimi 实际部署的是 **Block AttnRes**，而不是 Full AttnRes。它把层分成约 8 个 block【turn0search4】：
+值得注意的是，Kimi 实际部署的是 **Block AttnRes**，而不是 Full AttnRes。它把层分成约 8 个 block：
 
 - **块内**：仍然用标准加法残差（$h = h + f(h)$），保留 +1 恒等通道，**这部分绝对不会梯度消失**。
 - **块间**：才用 softmax attention 聚合各 block 的表示。
@@ -275,11 +275,11 @@ $$ h_l = \text{Attn}(h_{l-1}) \Rightarrow \frac{\partial h_L}{\partial h_0} = \p
 | 维度 | 你设想的层间 QKV（方案二） | Kimi AttnRes |
 |---|---|---|
 | softmax 作用维度 | token 维度（N×N）或层间稠密 QK | **深度维度（L 个历史层）** |
-| 每层是否有独立 Q/K/V 投影 | 有，$W_Q, W_K, W_V \in \mathbb{R}^{d\times d}$ | **无**，只有一个伪查询 $w_l \in \mathbb{R}^d$，$K=\text{Norm}(v_i)$，$V=v_i$（恒等）【turn0search4】 |
+| 每层是否有独立 Q/K/V 投影 | 有，$W_Q, W_K, W_V \in \mathbb{R}^{d\times d}$ | **无**，只有一个伪查询 $w_l \in \mathbb{R}^d$，$K=\text{Norm}(v_i)$，$V=v_i$（恒等） |
 | 雅可比路径结构 | $h_L \to h_0$ 是长度 $L$ 的链，$\prod J_l$ | $h_l$ 直接从所有 $v_{i<l}$ 一步读取，路径长度=1 |
 | V 是否投影 | $V = W_V h$，引入谱范数<1 的投影 | $V = v_i$（identity），路径是 $\alpha \cdot I$ |
 
-第三行是命门。AttnRes 的公式是【turn0search4】：
+第三行是命门。AttnRes 的公式是：
 
 $$ h_l = \sum_{i=0}^{l-1} \alpha_{i\to l} \cdot v_i, \quad \alpha_{i\to l} = \text{softmax}_i\left( w_l \cdot \text{Norm}(v_i) \right) $$
 
@@ -295,7 +295,7 @@ $$ \frac{\partial h_l}{\partial v_j} = \alpha_{j\to l} \cdot I + \sum_i \frac{\p
 
 我之前论证"attention 雅可比范数<1"时，隐含假设了 $V = W_V h$，即 Value 经过投影。此时即使 $\alpha_{j\to l}=1$，路径也是 $W_V$，其谱范数受 $\|W_V\|$ 约束，仍 <1。
 
-而 AttnRes 的代码明确显示【turn0search4】：
+而 AttnRes 的代码明确显示：
 
 ```python
 V = torch.stack(blocks + [partial_block])  # V 就是层输出本身
@@ -322,7 +322,7 @@ $$ \frac{\partial h_l}{\partial v_{j^*}} = \alpha_{j^*\to l} \cdot I \to I \quad
 
 **被选中的那条路径，梯度反而达到满强度 $I$**。未被选中的 $v_j$（$j\neq j^*$）从这一层拿到 0，但它们会被其他 $l' > j$ 的层读取——只要存在某个 $l'$ 使 $\alpha_{j\to l'} \neq 0$，$v_j$ 就能收到梯度。这是一种**多路径冗余回传**结构，而不是单链脆弱路由。
 
-论文本身把这个机制归结为 "competitive softmax normalization"【turn0search7】——各源竞争而非累加，$\sum \alpha = 1$ 把 $\|h_l\|$ 钉在有界范围内，消除了 PreNorm 下 $\|h_l\| \sim \mathcal{O}(L)$ 的膨胀，进而让梯度范数在深度上分布更均匀【turn0search5】。
+论文本身把这个机制归结为 "competitive softmax normalization"——各源竞争而非累加，$\sum \alpha = 1$ 把 $\|h_l\|$ 钉在有界范围内，消除了 PreNorm 下 $\|h_l\| \sim \mathcal{O}(L)$ 的膨胀，进而让梯度范数在深度上分布更均匀。
 
 ---
 
@@ -331,8 +331,8 @@ $$ \frac{\partial h_l}{\partial v_{j^*}} = \alpha_{j^*\to l} \cdot I \to I \quad
 AttnRes 规避了我之前说的"链式连乘型"梯度消失，但它引入了另一些风险，这些风险和我之前的批判并不冲突：
 
 1. **路径强度 $\leq 1$，没有 $+I$ 的增强项**。标准残差的 $\frac{\partial h_l}{\partial h_{l-1}} = I + J$ 有个常数 $I$ 兜底；AttnRes 的直达项是 $\alpha_{j\to l} I$，系数被压在 $(0,1)$。所以单条路径的梯度强度确实比标准残差弱——只是它不指数衰减。
-2. **表征坍塌风险**。Ziming Liu 指出，若初始化不当使 $\alpha$ 趋向均匀，则 $h_l \approx \frac{1}{l}\sum v_i$，表征会均值化【turn0search3】。这不是梯度消失，但是表征消失。
-3. **这正是 Block AttnRes 存在的理由**。实际部署的 Kimi Linear 用的是 Block 版本：**块内保留标准加法残差**（$h = h + f(h)$，有 $+I$ 兜底），**块间才用 attention 聚合**【turn0search4】。也就是说，真正兜底梯度流的仍然是标准残差，AttnRes 只在块间做"信息路由优化"。
+2. **表征坍塌风险**。Ziming Liu 指出，若初始化不当使 $\alpha$ 趋向均匀，则 $h_l \approx \frac{1}{l}\sum v_i$，表征会均值化。这不是梯度消失，但是表征消失。
+3. **这正是 Block AttnRes 存在的理由**。实际部署的 Kimi Linear 用的是 Block 版本：**块内保留标准加法残差**（$h = h + f(h)$，有 $+I$ 兜底），**块间才用 attention 聚合**。也就是说，真正兜底梯度流的仍然是标准残差，AttnRes 只在块间做"信息路由优化"。
 
 ---
 

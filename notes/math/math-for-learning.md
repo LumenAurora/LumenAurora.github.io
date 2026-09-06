@@ -33,9 +33,9 @@ $$\min_\theta \; \mathbb{E}_{Z \sim \rho_\theta}\big[\ell_\theta(Z)\big]$$
     *   **策略驱动（On-policy / 在线）**：$\rho_\theta$ 依赖于 $\theta$。模型是一个**主动的采样者**，它根据自己的当前策略生成样本。这是强化学习（RL）的标志。
 *   **损失 $\ell_\theta(Z)$**：模型在样本 $Z$ 上表现有多差的标量度量。
 
-**一个至关重要的统一观察**：在大多数情况下，损失函数被设定为**负对数似然**，即 $\ell_\theta(z) = -\log p_\theta(z)$。此时目标变为 $\min_\theta \mathbb{E}_{z\sim\rho}[-\log p_\theta(z)]$，这正是**最大似然估计（MLE）**。在数学上，它等价于最小化数据分布 $\rho$ 与模型分布 $p_\theta$ 之间的 KL 散度，而在分类问题中，它直接等价于**交叉熵**【turn0search15】【turn0search16】【turn0search18】。
+**一个至关重要的统一观察**：在大多数情况下，损失函数被设定为**负对数似然**，即 $\ell_\theta(z) = -\log p_\theta(z)$。此时目标变为 $\min_\theta \mathbb{E}_{z\sim\rho}[-\log p_\theta(z)]$，这正是**最大似然估计（MLE）**。在数学上，它等价于最小化数据分布 $\rho$ 与模型分布 $p_\theta$ 之间的 KL 散度，而在分类问题中，它直接等价于**交叉熵**。
 
-由于期望通常不可解析求解，我们用蒙特卡洛采样（即数据集）来近似它。当 $\rho$ 是固定的数据集时，这就是**经验风险最小化（ERM）**：$\hat{R}(\theta) = \frac{1}{N} \sum_i \ell_\theta(z_i)$【turn0search10】【turn0search12】。
+由于期望通常不可解析求解，我们用蒙特卡洛采样（即数据集）来近似它。当 $\rho$ 是固定的数据集时，这就是**经验风险最小化（ERM）**：$\hat{R}(\theta) = \frac{1}{N} \sum_i \ell_\theta(z_i)$。
 
 ---
 
@@ -47,8 +47,8 @@ $$\min_\theta \; \mathbb{E}_{(x,y)\sim\rho_{\text{data}}}\big[-\log p_\theta(y\m
 
 **推导与直觉**：
 我们拥有一组输入-标签对 $(x,y)$。模型被设定为一个条件概率分布 $p_\theta(y\mid x)$。损失函数要求模型在给定输入 $x$ 时，将尽可能多的概率质量分配给真实的标签 $y$。
-*   对于离散标签（分类），这精确地等于**交叉熵损失**【turn0search13】。
-*   对于连续标签（回归），如果假设 $p_\theta(y\mid x) = \mathcal{N}(f_\theta(x), \sigma^2 I)$，它推导为**均方误差（MSE）** $\|y - f_\theta(x)\|^2$【turn0search17】。
+*   对于离散标签（分类），这精确地等于**交叉熵损失**。
+*   对于连续标签（回归），如果假设 $p_\theta(y\mid x) = \mathcal{N}(f_\theta(x), \sigma^2 I)$，它推导为**均方误差（MSE）** $\|y - f_\theta(x)\|^2$。
 监督学习是最简单的特例，因为 $\rho_\theta$ 不依赖 $\theta$，且损失在样本间独立。后续所有范式，本质上都是在用不同的方式构造“$x$”和“$y$”。
 
 ---
@@ -66,7 +66,7 @@ $$\ell_\theta(x_{1:T}) = -\sum_{t=1}^{T} \log p_\theta(x_t \mid x_{<t})$$
 $$\min_\theta \; \mathbb{E}_{x\sim\rho_{\text{data}}}\!\left[-\sum_{t}\log p_\theta(x_t\mid x_{<t})\right]$$
 
 **推导与直觉**：
-通过链式法则，生成一个序列被简化为一系列独立的“预测下一个Token”子问题。在每个时间步 $t$，模型输出一个词表上的分布 $p_\theta(\cdot \mid x_{<t})$，而损失就是该分布与真实下一个Token $x_t$（One-hot标签）之间的交叉熵【turn0search10】【turn2search9】。
+通过链式法则，生成一个序列被简化为一系列独立的“预测下一个Token”子问题。在每个时间步 $t$，模型输出一个词表上的分布 $p_\theta(\cdot \mid x_{<t})$，而损失就是该分布与真实下一个Token $x_t$（One-hot标签）之间的交叉熵。
 因此，GPT等大语言模型的预训练，本质就是**在序列上的最大似然估计**，而其具体形式就是**逐Token的交叉熵之和**。自回归采样（从分布中抽取 $x_t$，拼接到上下文，再预测下一个）只是这种分解在生成时的自然结果。
 
 ---
@@ -82,11 +82,11 @@ $$q(x_t \mid x_{t-1}) = \mathcal{N}\big(x_t;\, \sqrt{1-\beta_t}\,x_{t-1},\, \bet
 
 模型则学习一个**反向去噪过程** $p_\theta(x_{t-1} \mid x_t)$。直接优化对数似然 $\log p_\theta(x_0)$ 是困难的，转而优化其**变分下界（ELBO）**。ELBO 可分解为各时间步上真实后验 $q(x_{t-1}\mid x_t, x_0)$ 与模型反向分布 $p_\theta(x_{t-1}\mid x_t)$ 之间的 KL 散度之和。由于两者都是高斯的，最小化 KL 散度等价于让模型反向过程的均值 $\mu_\theta$ 匹配真实后验均值 $\mu_q$，而 $\mu_q$ 的表达式恰好是 $x_t$ 和原始噪声 $\varepsilon$ 的函数。
 
-Ho et al. (2020) 证明，整个 ELBO 可以被简化并重新参数化为一个纯粹的**噪声预测MSE损失**【turn1search3】【turn1search4】：
+Ho et al. (2020) 证明，整个 ELBO 可以被简化并重新参数化为一个纯粹的**噪声预测MSE损失**：
 $$\boxed{\;\mathcal{L}_{\text{diff}}(\theta)=\mathbb{E}_{x_0,\,t,\,\varepsilon}\Big[\big\|\varepsilon-\varepsilon_\theta\big(\sqrt{\bar\alpha_t}\,x_0+\sqrt{1-\bar\alpha_t}\,\varepsilon,\;t\big)\big\|^2\Big]\;}$$
 
-**直觉**：扩散模型将生成建模任务转化为无数个去噪子任务。在随机噪声水平 $t$ 下，给定带噪图像 $x_t$，模型需预测加入的噪声 $\varepsilon$。这本质上是**最大似然估计的变分形式**——ELBO 是对数似然的下界，最大化下界即近似最大化似然【turn2search1】【turn2search17】。
-更深层的联系是，预测噪声 $\varepsilon_\theta(x_t, t)$ 在数学上等价于估计噪声扰动数据分布的**得分函数** $\nabla_{x_t} \log q_t(x_t)$。这就是扩散模型与得分匹配 generative 模型统一的桥梁【turn4search10】【turn3search8】。
+**直觉**：扩散模型将生成建模任务转化为无数个去噪子任务。在随机噪声水平 $t$ 下，给定带噪图像 $x_t$，模型需预测加入的噪声 $\varepsilon$。这本质上是**最大似然估计的变分形式**——ELBO 是对数似然的下界，最大化下界即近似最大化似然。
+更深层的联系是，预测噪声 $\varepsilon_\theta(x_t, t)$ 在数学上等价于估计噪声扰动数据分布的**得分函数** $\nabla_{x_t} \log q_t(x_t)$。这就是扩散模型与得分匹配 generative 模型统一的桥梁。
 
 ---
 
@@ -99,25 +99,25 @@ $$\min_\theta \; \mathbb{E}_{\tau\sim\rho_\theta}\big[-R(\tau)\big] \quad\Longle
 这是唯一一个 $\rho_\theta$ 真正依赖于 $\theta$ 的情况，这使得梯度计算变得复杂：我们需要对依赖于 $\theta$ 的期望求导。
 
 **推导：对数导数技巧与策略梯度定理**
-利用恒等式 $\nabla_\theta p_\theta(\tau) = p_\theta(\tau) \nabla_\theta \log p_\theta(\tau)$【turn3search0】【turn3search1】：
+利用恒等式 $\nabla_\theta p_\theta(\tau) = p_\theta(\tau) \nabla_\theta \log p_\theta(\tau)$：
 $$\nabla_\theta J(\theta) = \nabla_\theta \mathbb{E}_{\tau\sim\pi_\theta}[R(\tau)] = \int \nabla_\theta p_\theta(\tau) R(\tau) d\tau = \int p_\theta(\tau) \nabla_\theta \log p_\theta(\tau) R(\tau) d\tau$$
 $$= \mathbb{E}_{\tau\sim\pi_\theta}\big[R(\tau) \nabla_\theta \log p_\theta(\tau)\big]$$
-由于环境动力学 $p(s_0)$ 和 $P(s_{t+1}\mid s_t, a_t)$ 不依赖于 $\theta$，$\log p_\theta(\tau) = \sum_t \log \pi_\theta(a_t\mid s_t) + \text{const}$，其梯度只剩下策略项。由此得到**策略梯度定理**【turn0search5】【turn0search6】：
+由于环境动力学 $p(s_0)$ 和 $P(s_{t+1}\mid s_t, a_t)$ 不依赖于 $\theta$，$\log p_\theta(\tau) = \sum_t \log \pi_\theta(a_t\mid s_t) + \text{const}$，其梯度只剩下策略项。由此得到**策略梯度定理**：
 $$\boxed{\;\nabla_\theta J(\theta)=\mathbb{E}_{\tau\sim\pi_\theta}\!\left[\sum_t \nabla_\theta\log\pi_\theta(a_t\mid s_t)\, G_t\right],\quad G_t=\sum_{t'\ge t}\gamma^{t'-t}\,r_{t'}\;}$$
 
 **直觉**：梯度指示我们：如果轨迹的回报 $G_t$ 高，就提高产生动作 $a_t$ 的对数概率 $\log \pi_\theta(a_t\mid s_t)$；如果回报低，就降低它。“多做有效的事，少做无效的事”。REINFORCE 算法就是其蒙特卡洛实现。
 
 ##### 特例1：RLHF（人类反馈强化学习）
-在 RLHF 中，没有手工奖励，而是先学习一个奖励模型 $r_{\text{RM}}$（本身是一个监督学习回归问题），然后优化策略同时用 KL 散度约束其不要偏离初始参考模型 $\pi_{\text{ref}}$（防止奖励作弊）【turn4search5】【turn4search8】：
+在 RLHF 中，没有手工奖励，而是先学习一个奖励模型 $r_{\text{RM}}$（本身是一个监督学习回归问题），然后优化策略同时用 KL 散度约束其不要偏离初始参考模型 $\pi_{\text{ref}}$（防止奖励作弊）：
 $$\max_\theta \; \mathbb{E}_{\tau\sim\pi_\theta}\big[r_{\text{RM}}(\tau)\big] - \beta\,\mathbb{D}_{\mathrm{KL}}\big(\pi_\theta \,\|\, \pi_{\text{ref}}\big)$$
 
 ##### 特例2：DPO（直接偏好优化）
-DPO 的核心洞察是：上述 KL 正则化 RL 问题的**最优策略**有解析解 $r^*(x,y) = \beta\log\frac{\pi^*(y\mid x)}{\pi_{\text{ref}}(y\mid x)} + \text{const}$。将其代入 Bradley-Terry 偏好模型 $p(y_w \succ y_l \mid x) = \sigma(r^*(x,y_w) - r^*(x,y_l))$，可消去显式的奖励函数，得到一个纯粹的**监督学习损失**【turn2search10】【turn2search11】：
+DPO 的核心洞察是：上述 KL 正则化 RL 问题的**最优策略**有解析解 $r^*(x,y) = \beta\log\frac{\pi^*(y\mid x)}{\pi_{\text{ref}}(y\mid x)} + \text{const}$。将其代入 Bradley-Terry 偏好模型 $p(y_w \succ y_l \mid x) = \sigma(r^*(x,y_w) - r^*(x,y_l))$，可消去显式的奖励函数，得到一个纯粹的**监督学习损失**：
 $$\boxed{\;\mathcal{L}_{\text{DPO}}(\theta)=-\,\mathbb{E}_{(x,y_w,y_l)}\!\left[\log\sigma\!\left(\beta\log\frac{\pi_\theta(y_w\mid x)}{\pi_{\text{ref}}(y_w\mid x)}-\beta\log\frac{\pi_\theta(y_l\mid x)}{\pi_{\text{ref}}(y_l\mid x)}\right)\right]\;}$$
 DPO 将一个依赖 $\theta$ 的在线 RL 问题，通过其闭式解，塌缩成了一个在固定偏好数据集上的二分类监督学习问题。
 
 ##### 特例3：行为克隆
-如果直接在专家轨迹数据集 $\{(s,a)\}$ 上最小化 $-\log \pi_\theta(a\mid s)$，这就是**行为克隆**。它完全忽略了 $\rho_\theta$ 的依赖性，直接用监督学习（交叉熵或MSE）拟合状态-动作对【turn4search0】。
+如果直接在专家轨迹数据集 $\{(s,a)\}$ 上最小化 $-\log \pi_\theta(a\mid s)$，这就是**行为克隆**。它完全忽略了 $\rho_\theta$ 的依赖性，直接用监督学习（交叉熵或MSE）拟合状态-动作对。
 
 ---
 
@@ -127,12 +127,12 @@ DPO 将一个依赖 $\theta$ 的在线 RL 问题，通过其闭式解，塌缩�
 
 | 范式 | 样本 $Z$ | 分布 $\rho_\theta$ | 损失 $\ell_\theta(Z)$ | $\rho_\theta$ 依赖 $\theta$? | 等价原理 |
 |---|---|---|---|---|---|
-| **监督学习** | $(x,y)$ | $\rho_{\text{data}}$ | $-\log p_\theta(y\mid x)$ | 否 | MLE / ERM【turn0search13】 |
-| **自回归 (GPT)** | $x_{1:T}$ | $\rho_{\text{data}}$ | $-\sum_t\log p_\theta(x_t\mid x_{<t})$ | 否 | 链式法则 MLE【turn2search9】 |
-| **扩散 (DDPM)** | $(x_0,t,\varepsilon)$ | $\rho_{\text{data}}\times\mathcal{U}\times\mathcal{N}$ | $\|\varepsilon-\varepsilon_\theta(x_t,t)\|^2$ | 否 | ELBO / 得分匹配【turn2search0】 |
-| **策略梯度** | $\tau$ | $\pi_\theta \times P$ | $-R(\tau)$ | **是** | 得分函数梯度【turn0search5】 |
-| **RLHF** | $\tau$ | $\pi_\theta \times P$ | $-r_{\text{RM}}(\tau) + \beta \mathrm{KL}(\pi_\theta\|\pi_{\text{ref}})$ | 是 | KL 正则化 RL【turn4search5】 |
-| **DPO** | $(x,y_w,y_l)$ | 偏好数据集 | $-\log\sigma(\beta\log\frac{\pi_\theta(y_w\|x)}{\pi_{\text{ref}}} - \dots)$ | 否 | RL 闭式解 $\to$ SL【turn2search10】 |
+| **监督学习** | $(x,y)$ | $\rho_{\text{data}}$ | $-\log p_\theta(y\mid x)$ | 否 | MLE / ERM |
+| **自回归 (GPT)** | $x_{1:T}$ | $\rho_{\text{data}}$ | $-\sum_t\log p_\theta(x_t\mid x_{<t})$ | 否 | 链式法则 MLE |
+| **扩散 (DDPM)** | $(x_0,t,\varepsilon)$ | $\rho_{\text{data}}\times\mathcal{U}\times\mathcal{N}$ | $\|\varepsilon-\varepsilon_\theta(x_t,t)\|^2$ | 否 | ELBO / 得分匹配 |
+| **策略梯度** | $\tau$ | $\pi_\theta \times P$ | $-R(\tau)$ | **是** | 得分函数梯度 |
+| **RLHF** | $\tau$ | $\pi_\theta \times P$ | $-r_{\text{RM}}(\tau) + \beta \mathrm{KL}(\pi_\theta\|\pi_{\text{ref}})$ | 是 | KL 正则化 RL |
+| **DPO** | $(x,y_w,y_l)$ | 偏好数据集 | $-\log\sigma(\beta\log\frac{\pi_\theta(y_w\|x)}{\pi_{\text{ref}}} - \dots)$ | 否 | RL 闭式解 $\to$ SL |
 
 **核心洞察**：
 1.  **损失函数的本质**：基于似然的损失（SL, AR, 扩散, DPO）都在最小化某种 KL 散度，即“模仿”目标分布；基于奖励的损失（策略梯度, RLHF）则在“优化”一个标量目标。DPO 是连接两者的桥梁，证明了一个奖励优化问题可以有其等价的似然形式。
@@ -150,10 +150,10 @@ DPO 将一个依赖 $\theta$ 的在线 RL 问题，通过其闭式解，塌缩�
 
 | 名称 | 学习目标（训练时最小化） | 采样过程（推理时执行） |
 |---|---|---|
-| 自回归 | 逐 token 交叉熵 $-\sum_t \log p_\theta(x_t\mid x_{<t})$（NLL / MLE）【turn0search10】【turn2search9】 | 祖先采样：逐步从 $p_\theta(\cdot\mid x_{<t})$ 抽取并拼回上下文 |
-| 扩散 | 去噪 MSE $\mathbb{E}\|\varepsilon-\varepsilon_\theta(x_t,t)\|^2$（ELBO / score matching）【turn1search3】【turn1search4】 | 反向 SDE / ODE：从 $x_T\sim\mathcal N(0,I)$ 倒推到 $x_0$ |
+| 自回归 | 逐 token 交叉熵 $-\sum_t \log p_\theta(x_t\mid x_{<t})$（NLL / MLE） | 祖先采样：逐步从 $p_\theta(\cdot\mid x_{<t})$ 抽取并拼回上下文 |
+| 扩散 | 去噪 MSE $\mathbb{E}\|\varepsilon-\varepsilon_\theta(x_t,t)\|^2$（ELBO / score matching） | 反向 SDE / ODE：从 $x_T\sim\mathcal N(0,I)$ 倒推到 $x_0$ |
 
-**最直接的证据是 DDIM**：它与 DDPM 共享完全相同的训练目标，却采用完全不同的采样过程——DDPM 用随机反向 SDE（马尔可夫链），DDIM 用确定性反向 ODE（非马尔可夫），两者采样速度差 10–50 倍，但训练时网络权重是一回事【turn1search20】【turn1search24】。这恰好说明：**学习范式与采样范式是正交的两条轴**，可以任意组合。
+**最直接的证据是 DDIM**：它与 DDPM 共享完全相同的训练目标，却采用完全不同的采样过程——DDPM 用随机反向 SDE（马尔可夫链），DDIM 用确定性反向 ODE（非马尔可夫），两者采样速度差 10–50 倍，但训练时网络权重是一回事。这恰好说明：**学习范式与采样范式是正交的两条轴**，可以任意组合。
 
 ---
 
@@ -179,32 +179,32 @@ $$\boxed{\;\text{给定对 }p(x)\text{ 的某种访问接口，构造过程 }\ma
 
 | 范式 | $Z$ | $\rho_\theta$ | $\ell_\theta(Z)$ | $\rho_\theta$ 依赖 $\theta$? | 等价原理 |
 |---|---|---|---|---|---|
-| **监督（分类）** | $(x,y)$ | $\rho_{\text{data}}$ | $-\log p_\theta(y\mid x)$ | 否 | MLE / ERM【turn0search13】 |
-| **自监督-掩码（BERT/MAE）** | $(x,\tilde x)$ | $\rho_{\text{data}}$ | $-\log p_\theta(x_{\text{mask}}\mid x_{\text{visible}})$ | 否 | 条件 MLE（伪标签来自 $x$ 自身）【turn0search2】【turn0search3】 |
-| **自监督-对比（SimCLR/InfoNCE）** | $(x,x^+,x^-_1..x^-_K)$ | $\rho_{\text{data}}$ | $-\log\frac{\exp(\text{sim}(z,z^+)/\tau)}{\sum_k\exp(\text{sim}(z,z^-_k)/\tau)}$ | 否 | NCE / 互信息下界【turn1search22】【turn1search20】 |
-| **自回归（GPT）** | $x_{1:T}$ | $\rho_{\text{data}}$ | $-\sum_t\log p_\theta(x_t\mid x_{<t})$ | 否 | 链式法则 MLE【turn2search9】 |
-| **扩散（DDPM）** | $(x_0,t,\varepsilon)$ | $\rho_{\text{data}}\times\mathcal U\times\mathcal N$ | $\|\varepsilon-\varepsilon_\theta(x_t,t)\|^2$ | 否 | ELBO / score matching【turn2search0】【turn4search10】 |
-| **Flow Matching / Rectified Flow** | $(x_0,x_1,t)$ | $\rho_{\text{data}}\times\rho_{\text{noise}}\times\mathcal U$ | $\|u_t(x_0,x_1)-v_\theta(x_t,t)\|^2$ | 否 | 条件流匹配（MLE 的连续时间推广）【turn0search5】【turn0search6】 |
-| **Normalizing Flow** | $x_0$ | $\rho_{\text{data}}$ | $-\log p_Z(f_\theta^{-1}(x_0))-\log\|\det J_{f_\theta^{-1}}\|$ | 否 | 精确 MLE（变量替换公式）【turn0search10】【turn0search12】 |
-| **VAE** | $x$ | $\rho_{\text{data}}$ | $-\mathbb{E}_{q_\phi(z\mid x)}\log p_\theta(x\mid z)+\mathrm{KL}(q_\phi\|p(z))$ | 否 | ELBO（潜变量 MLE 下界）【turn0search3】【turn0search25】 |
-| **Energy-Based Model（对比散度）** | $(x,x^-)$ | $\rho_{\text{data}}$ 与 $\rho_\theta$（负样本来自模型） | $E_\theta(x)-\log\int e^{-E_\theta}+\dots$（实用形式：$E_\theta(x)-E_\theta(x^-)$） | **是**（负样本由模型采样） | MLE 梯度 $\nabla(\mathbb E_{\text{data}}E-\mathbb E_{\text{model}}E)$【turn1search26】【turn0search6】 |
-| **Score-Based（DSM）** | $(x,t,\varepsilon)$ | $\rho_{\text{data}}\times\mathcal U\times\mathcal N$ | $\tfrac12\|\nabla_x\log q_t(x\mid x_0)-s_\theta(x_t,t)\|^2$ | 否 | 隐式 MLE（Fisher-Hyvärinen）【turn4search10】 |
-| **RL（policy gradient）** | $\tau$ | $\pi_\theta\times P$ | $-R(\tau)$ | **是** | score-function 梯度【turn0search5】 |
-| **Offline RL（CQL）** | $(s,a,r,s')$ | 固定数据集 $\rho_{\text{buffer}}$ | TD 误差 $+\alpha\big(\mathbb E_{a\sim\pi}\log\sum_a e^{Q}-Q(s,a_{\text{data}})\big)$ | 否（数据固定） | 保守 Bellman 最小化【turn1search15】【turn1search19】 |
-| **行为克隆（BC）** | $(s,a)$ | 专家演示 $\rho_E$ | $-\log\pi_\theta(a\mid s)$ | 否 | MLE on $(s,a)$【turn4search0】 |
-| **逆强化学习（MaxEnt IRL）** | 专家轨迹 $\tau_E$ | $\rho_E$ 与环境 | $\min_w\mathrm{KL}(\rho_E\|\rho_{\pi_w})$（外层） | 内层 $\pi_w$ 依赖 $w$ | 最大熵 → KL 最小化【turn0search3】 |
-| **RLHF / DPO** | $\tau$ / $(x,y_w,y_l)$ | $\pi_\theta$ / 偏好数据 | $-r_{\text{RM}}+\beta\mathrm{KL}(\pi_\theta\|\pi_{\text{ref}})$ / DPO logistic | 是 / 否 | KL-正则 RL；DPO 为闭式解【turn4search5】【turn2search10】 |
-| **元学习（MAML）** | 任务 $\mathcal T_i$（含 support/query） | 任务分布 $p(\mathcal T)$ | $\mathbb E_{\mathcal T}\big[\mathcal L_{\mathcal T}(\theta-\eta\nabla\mathcal L_{\mathcal T}^{\text{tr}}(\theta))\big]$ | 内层依赖 $\theta$ | 双层优化【turn1search10】【turn1search11】 |
-| **主动学习** | 候选池 $x$ | $\rho_{\text{pool}}$（动态更新） | $\mathcal L_\theta(x)+\lambda\,\mathcal A_\theta(x)$（采集函数 $\mathcal A$） | 否（但 $\mathcal A$ 依赖 $\theta$） | ERM + 不确定性/多样性采集【turn0search13】 |
-| **半监督（一致性正则）** | $(x,\text{aug}(x))$ | $\rho_{\text{labeled}}+\rho_{\text{unlabeled}}$ | $\mathcal L_{\text{sup}}+\lambda\,\|f_\theta(x)-f_\theta(\text{aug}(x))\|^2$ | 否 | ERM + 流形平滑假设【turn0search20】【turn0search21】 |
-| **课程 / 自步学习** | $(x,\text{难度}v)$ | $\rho_v$（按难度逐步放宽） | $\sum_i v_i\ell_\theta(x_i)+f(v;\lambda)$ | 否 | ERM + 难度加权正则【turn0search16】 |
-| **联邦学习（FedAvg）** | 各客户端数据 | $\sum_k w_k\rho_k$ | $\sum_k w_k\mathbb E_{\rho_k}[\ell_\theta]$ | 否 | 分布式 ERM【turn0search5】【turn0search7】 |
+| **监督（分类）** | $(x,y)$ | $\rho_{\text{data}}$ | $-\log p_\theta(y\mid x)$ | 否 | MLE / ERM |
+| **自监督-掩码（BERT/MAE）** | $(x,\tilde x)$ | $\rho_{\text{data}}$ | $-\log p_\theta(x_{\text{mask}}\mid x_{\text{visible}})$ | 否 | 条件 MLE（伪标签来自 $x$ 自身） |
+| **自监督-对比（SimCLR/InfoNCE）** | $(x,x^+,x^-_1..x^-_K)$ | $\rho_{\text{data}}$ | $-\log\frac{\exp(\text{sim}(z,z^+)/\tau)}{\sum_k\exp(\text{sim}(z,z^-_k)/\tau)}$ | 否 | NCE / 互信息下界 |
+| **自回归（GPT）** | $x_{1:T}$ | $\rho_{\text{data}}$ | $-\sum_t\log p_\theta(x_t\mid x_{<t})$ | 否 | 链式法则 MLE |
+| **扩散（DDPM）** | $(x_0,t,\varepsilon)$ | $\rho_{\text{data}}\times\mathcal U\times\mathcal N$ | $\|\varepsilon-\varepsilon_\theta(x_t,t)\|^2$ | 否 | ELBO / score matching |
+| **Flow Matching / Rectified Flow** | $(x_0,x_1,t)$ | $\rho_{\text{data}}\times\rho_{\text{noise}}\times\mathcal U$ | $\|u_t(x_0,x_1)-v_\theta(x_t,t)\|^2$ | 否 | 条件流匹配（MLE 的连续时间推广） |
+| **Normalizing Flow** | $x_0$ | $\rho_{\text{data}}$ | $-\log p_Z(f_\theta^{-1}(x_0))-\log\|\det J_{f_\theta^{-1}}\|$ | 否 | 精确 MLE（变量替换公式） |
+| **VAE** | $x$ | $\rho_{\text{data}}$ | $-\mathbb{E}_{q_\phi(z\mid x)}\log p_\theta(x\mid z)+\mathrm{KL}(q_\phi\|p(z))$ | 否 | ELBO（潜变量 MLE 下界） |
+| **Energy-Based Model（对比散度）** | $(x,x^-)$ | $\rho_{\text{data}}$ 与 $\rho_\theta$（负样本来自模型） | $E_\theta(x)-\log\int e^{-E_\theta}+\dots$（实用形式：$E_\theta(x)-E_\theta(x^-)$） | **是**（负样本由模型采样） | MLE 梯度 $\nabla(\mathbb E_{\text{data}}E-\mathbb E_{\text{model}}E)$ |
+| **Score-Based（DSM）** | $(x,t,\varepsilon)$ | $\rho_{\text{data}}\times\mathcal U\times\mathcal N$ | $\tfrac12\|\nabla_x\log q_t(x\mid x_0)-s_\theta(x_t,t)\|^2$ | 否 | 隐式 MLE（Fisher-Hyvärinen） |
+| **RL（policy gradient）** | $\tau$ | $\pi_\theta\times P$ | $-R(\tau)$ | **是** | score-function 梯度 |
+| **Offline RL（CQL）** | $(s,a,r,s')$ | 固定数据集 $\rho_{\text{buffer}}$ | TD 误差 $+\alpha\big(\mathbb E_{a\sim\pi}\log\sum_a e^{Q}-Q(s,a_{\text{data}})\big)$ | 否（数据固定） | 保守 Bellman 最小化 |
+| **行为克隆（BC）** | $(s,a)$ | 专家演示 $\rho_E$ | $-\log\pi_\theta(a\mid s)$ | 否 | MLE on $(s,a)$ |
+| **逆强化学习（MaxEnt IRL）** | 专家轨迹 $\tau_E$ | $\rho_E$ 与环境 | $\min_w\mathrm{KL}(\rho_E\|\rho_{\pi_w})$（外层） | 内层 $\pi_w$ 依赖 $w$ | 最大熵 → KL 最小化 |
+| **RLHF / DPO** | $\tau$ / $(x,y_w,y_l)$ | $\pi_\theta$ / 偏好数据 | $-r_{\text{RM}}+\beta\mathrm{KL}(\pi_\theta\|\pi_{\text{ref}})$ / DPO logistic | 是 / 否 | KL-正则 RL；DPO 为闭式解 |
+| **元学习（MAML）** | 任务 $\mathcal T_i$（含 support/query） | 任务分布 $p(\mathcal T)$ | $\mathbb E_{\mathcal T}\big[\mathcal L_{\mathcal T}(\theta-\eta\nabla\mathcal L_{\mathcal T}^{\text{tr}}(\theta))\big]$ | 内层依赖 $\theta$ | 双层优化 |
+| **主动学习** | 候选池 $x$ | $\rho_{\text{pool}}$（动态更新） | $\mathcal L_\theta(x)+\lambda\,\mathcal A_\theta(x)$（采集函数 $\mathcal A$） | 否（但 $\mathcal A$ 依赖 $\theta$） | ERM + 不确定性/多样性采集 |
+| **半监督（一致性正则）** | $(x,\text{aug}(x))$ | $\rho_{\text{labeled}}+\rho_{\text{unlabeled}}$ | $\mathcal L_{\text{sup}}+\lambda\,\|f_\theta(x)-f_\theta(\text{aug}(x))\|^2$ | 否 | ERM + 流形平滑假设 |
+| **课程 / 自步学习** | $(x,\text{难度}v)$ | $\rho_v$（按难度逐步放宽） | $\sum_i v_i\ell_\theta(x_i)+f(v;\lambda)$ | 否 | ERM + 难度加权正则 |
+| **联邦学习（FedAvg）** | 各客户端数据 | $\sum_k w_k\rho_k$ | $\sum_k w_k\mathbb E_{\rho_k}[\ell_\theta]$ | 否 | 分布式 ERM |
 
 几个值得注意的归类：
 - **似然族**（监督、自监督-掩码、自回归、Flow、Flow Matching、VAE、扩散、Score）看似纷繁，其实全是 MLE 或其变体（精确 / 链式分解 / ELBO 下界 / score 等价）。
-- **对比族**（InfoNCE、NCE）把"算不出归一化常数"的困难转化为二分类，本质是互信息下界或 NCE 估计【turn1search20】。
+- **对比族**（InfoNCE、NCE）把"算不出归一化常数"的困难转化为二分类，本质是互信息下界或 NCE 估计。
 - **奖励族**（RL、RLHF、IRL）的特征是 $\ell_\theta$ 含显式或隐式奖励，且 $\rho_\theta$ 通常依赖 $\theta$。
-- **元学习**是少数让"第一公式"本身被嵌套的范式：内层公式是标准 ERM，外层公式再对"内层解"做期望最小化，所以是 $\min_\theta\mathbb E_{\mathcal T}[\min_{\phi}\dots]$ 形式的双层结构【turn1search10】。
+- **元学习**是少数让"第一公式"本身被嵌套的范式：内层公式是标准 ERM，外层公式再对"内层解"做期望最小化，所以是 $\min_\theta\mathbb E_{\mathcal T}[\min_{\phi}\dots]$ 形式的双层结构。
 
 ---
 
@@ -214,23 +214,23 @@ $$\boxed{\;\text{给定对 }p(x)\text{ 的某种访问接口，构造过程 }\ma
 
 | 采样范式 | 对 $p$ 的已知接口 | 核心机制 / 不变量 | 代表方法 | 适用场景 |
 |---|---|---|---|---|
-| **直接/逆变换采样** | 归一化 CDF 可逆 | $x=F^{-1}(u),\,u\sim\mathcal U(0,1)$ | 逆变换；Normalizing Flow（多变量可逆映射）【turn0search11】【turn0search14】 | $p$ 解析可积、低维；或模型本身可逆 |
-| **祖先采样** | 条件分解 $p(x)=\prod_t p(x_t\mid x_{<t})$ | 按拓扑序逐条件抽取 | 自回归 LM；有向图模型【turn1search0】 | 离散序列、有清晰因果顺序的结构 |
-| **拒绝采样** | 未归一化 $\tilde p(x)$ + 包络 $Mq(x)\ge\tilde p(x)$ | 提议-接受，接受率 $\tilde p/(Mq)$ | 经典拒绝采样【turn1search11】【turn1search13】 | $\tilde p$ 可计算但难直接采；包络好找 |
-| **重要性采样** | $\tilde p(x)$ 可计算（不必归一化） | 加权 $\mathbb E_p[f]\approx\frac1N\sum_i w_i f(x_i)$，$w_i=\tilde p(x_i)/q(x_i)$ | IS、自归一化 IS【turn1search11】 | 算期望而非要样本本身；罕见事件估计 |
-| **MCMC（MH / Gibbs / HMC / NUTS）** | 可计算到未归一化 $\tilde p(x)$（或各满条件密度） | 构造马氏链，细致平衡 $\pi(x)T(x\to x')=\pi(x')T(x'\to x)$ | Metropolis-Hastings、Gibbs【turn1search17】【turn1search18】、HMC【turn0search16】、NUTS | 高维后验；贝叶斯推断 |
-| **Score-based / Langevin** | 已知 score $s(x)=\nabla_x\log p(x)$ | $x_{k+1}=x_k+\tfrac{\eta}{2}\nabla_x\log p(x_k)+\sqrt\eta\,\eta_k$ | 退火 Langevin；NCSC【turn1search0】【turn1search3】 | 仅 score 可得；能量模型、扩散推理 |
-| **扩散反向 SDE（DDPM 类）** | 学到的反向漂移/分数场 | 从 $x_T\sim\mathcal N$ 倒向积分 SDE | DDPM、ancestral sampler【turn1search9】 | 想要随机性、多样性；理论严格 |
-| **扩散反向 ODE（DDIM 类）** | 学到的概率流 ODE | 确定性 ODE 积分，相同边缘分布 | DDIM、DPM-Solver、EDM【turn1search20】【turn1search8】 | 快速（10–50 步）；可逆编码 |
-| **变分推断（不采样，而是用 q 逼近 p）** | $\log p$ 可计算到某 ELBO | $\min_\phi\mathrm{KL}(q_\phi\|p)$，得到 $q_\phi$ 再直接采 | CAVI、VAE 推断【turn0search27】【turn0search28】 | 后验难采但可用简单族逼近；大规模 |
-| **序列蒙特卡洛 / 粒子滤波** | 序列模型 $p(x_{0:t}\mid y_{0:t})$ | 粒子集 + 重采样 + 传播 | SMC、PF【turn1search10】【turn1search11】 | 状态空间模型、在线滤波 |
-| **摊销采样（神经后验）** | （训练时见过大量同类 $p$） | 神经网络 $g_\phi(y)\to q(x)$ 一次前向输出样本/参数 | BayesFlow、NPE【turn0search15】【turn0search18】 | 同类后验需反复求解；推理要极快 |
+| **直接/逆变换采样** | 归一化 CDF 可逆 | $x=F^{-1}(u),\,u\sim\mathcal U(0,1)$ | 逆变换；Normalizing Flow（多变量可逆映射） | $p$ 解析可积、低维；或模型本身可逆 |
+| **祖先采样** | 条件分解 $p(x)=\prod_t p(x_t\mid x_{<t})$ | 按拓扑序逐条件抽取 | 自回归 LM；有向图模型 | 离散序列、有清晰因果顺序的结构 |
+| **拒绝采样** | 未归一化 $\tilde p(x)$ + 包络 $Mq(x)\ge\tilde p(x)$ | 提议-接受，接受率 $\tilde p/(Mq)$ | 经典拒绝采样 | $\tilde p$ 可计算但难直接采；包络好找 |
+| **重要性采样** | $\tilde p(x)$ 可计算（不必归一化） | 加权 $\mathbb E_p[f]\approx\frac1N\sum_i w_i f(x_i)$，$w_i=\tilde p(x_i)/q(x_i)$ | IS、自归一化 IS | 算期望而非要样本本身；罕见事件估计 |
+| **MCMC（MH / Gibbs / HMC / NUTS）** | 可计算到未归一化 $\tilde p(x)$（或各满条件密度） | 构造马氏链，细致平衡 $\pi(x)T(x\to x')=\pi(x')T(x'\to x)$ | Metropolis-Hastings、Gibbs、HMC、NUTS | 高维后验；贝叶斯推断 |
+| **Score-based / Langevin** | 已知 score $s(x)=\nabla_x\log p(x)$ | $x_{k+1}=x_k+\tfrac{\eta}{2}\nabla_x\log p(x_k)+\sqrt\eta\,\eta_k$ | 退火 Langevin；NCSC | 仅 score 可得；能量模型、扩散推理 |
+| **扩散反向 SDE（DDPM 类）** | 学到的反向漂移/分数场 | 从 $x_T\sim\mathcal N$ 倒向积分 SDE | DDPM、ancestral sampler | 想要随机性、多样性；理论严格 |
+| **扩散反向 ODE（DDIM 类）** | 学到的概率流 ODE | 确定性 ODE 积分，相同边缘分布 | DDIM、DPM-Solver、EDM | 快速（10–50 步）；可逆编码 |
+| **变分推断（不采样，而是用 q 逼近 p）** | $\log p$ 可计算到某 ELBO | $\min_\phi\mathrm{KL}(q_\phi\|p)$，得到 $q_\phi$ 再直接采 | CAVI、VAE 推断 | 后验难采但可用简单族逼近；大规模 |
+| **序列蒙特卡洛 / 粒子滤波** | 序列模型 $p(x_{0:t}\mid y_{0:t})$ | 粒子集 + 重采样 + 传播 | SMC、PF | 状态空间模型、在线滤波 |
+| **摊销采样（神经后验）** | （训练时见过大量同类 $p$） | 神经网络 $g_\phi(y)\to q(x)$ 一次前向输出样本/参数 | BayesFlow、NPE | 同类后验需反复求解；推理要极快 |
 
 几点贯穿性观察：
 - **"接口决定算法"是采样范式分类的第一性原理**。已知归一化 $p$ → 直接/逆变换；只知未归一化 $\tilde p$ → MCMC 或拒绝采样；只知 score $\nabla\log p$ → Langevin / 扩散 ODE；只知条件分解 → 祖先采样；甚至连 $p$ 都不能算只能模拟 → ABC、摊销推断。
-- **DDPM 采样与 DDIM 采样是同一学习目标下的两种采样器**，证明"学习/采样"两条轴可以独立选择：前者是随机反向 SDE，后者是确定性反向 ODE，边缘分布相同但样本路径完全不同【turn1search20】【turn1search9】。
-- **Langevin 是 MCMC 与扩散的桥梁**：扩散模型可看作把一条 Langevin 动力学"劈成前向加噪 + 反向去噪"两段，而训练学到的 score 网络就是 Langevin 步里要用到的 $\nabla_x\log p$【turn1search6】。
-- **变分推断处于灰色地带**：它不产出 $p$ 的样本，而是构造一个 $q_\phi\approx p$ 再从 $q_\phi$ 采；可视为"用优化代替采样"的近似采样范式【turn0search27】【turn0search29】。
+- **DDPM 采样与 DDIM 采样是同一学习目标下的两种采样器**，证明"学习/采样"两条轴可以独立选择：前者是随机反向 SDE，后者是确定性反向 ODE，边缘分布相同但样本路径完全不同。
+- **Langevin 是 MCMC 与扩散的桥梁**：扩散模型可看作把一条 Langevin 动力学"劈成前向加噪 + 反向去噪"两段，而训练学到的 score 网络就是 Langevin 步里要用到的 $\nabla_x\log p$。
+- **变分推断处于灰色地带**：它不产出 $p$ 的样本，而是构造一个 $q_\phi\approx p$ 再从 $q_\phi$ 采；可视为"用优化代替采样"的近似采样范式。
 
 ---
 
@@ -239,8 +239,8 @@ $$\boxed{\;\text{给定对 }p(x)\text{ 的某种访问接口，构造过程 }\ma
 学习公式与采样公式并非平行无关，而是通过"模型对数据的逼近"相互咬合：
 
 1. **学习决定了采样的对象**。$\min_\theta\mathbb E_{Z\sim\rho_\theta}[\ell_\theta(Z)]$ 的解 $\theta^\star$ 给出一个 $p_{\theta^\star}$，随后的采样就是从 $p_{\theta^\star}$ 抽样本。
-2. **采样反过来支撑学习**。当 $\rho_\theta$ 依赖 $\theta$ 时（RL、能量模型的对比散度、RLHF），训练所需的"模型样本"必须靠在线采样得到——policy rollout、Langevin 负样本、PPO 轨迹都是采样过程在为学习公式提供蒙特卡洛估计【turn1search26】【turn4search8】。
-3. **同一 $p_\theta$ 可以接不同采样器**。扩散模型训练完之后，DDPM、DDIM、DPM-Solver、ancestral、ODE 全部可换——这正是你直觉里"采样是独立一层"的最干净证据【turn1search8】【turn1search9】。
+2. **采样反过来支撑学习**。当 $\rho_\theta$ 依赖 $\theta$ 时（RL、能量模型的对比散度、RLHF），训练所需的"模型样本"必须靠在线采样得到——policy rollout、Langevin 负样本、PPO 轨迹都是采样过程在为学习公式提供蒙特卡洛估计。
+3. **同一 $p_\theta$ 可以接不同采样器**。扩散模型训练完之后，DDPM、DDIM、DPM-Solver、ancestral、ODE 全部可换——这正是你直觉里"采样是独立一层"的最干净证据。
 4. **学习范式的选择往往隐含采样接口的承诺**。选自回归就是承诺"条件分解可采"（祖先采样）；选 Normalizing Flow 就是承诺"可逆映射可采"（直接逆变换）；选扩散就是承诺"score 可学、反向 SDE/ODE 可积"。反过来，若你只能接触到 $\tilde p$（未归一化能量），那么学习侧就只能走对比散度 / NCE / score matching，采样侧就只能走 MCMC / Langevin——两套公式在接口约束下被一并锁定。
 
 所以更准确的图景是：**学习公式和采样公式构成一个"训练-推理"对**，$(Z,\rho_\theta,\ell_\theta)$ 与（对 $p_\theta$ 的访问接口, 采样器 $\mathcal S$）是同一个建模决策的两面。自回归、扩散这些"范式"之所以被叫做范式，是因为它们同时锁定了一对相容的训练目标与采样过程；但 DDIM 的存在提醒我们：锁定并非唯一，学习与采样始终是可独立设计的两个自由度。

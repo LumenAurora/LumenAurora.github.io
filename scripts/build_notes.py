@@ -72,6 +72,41 @@ art("interpretability/path-decomposition",
           "「路径之和」：先合成虚拟权重，再解剖 QK 电路与 OV 电路，"
           "最后用 skip-trigram 与 Induction Head 两个真实例子走完全流程。")
 
+# ---- 电路分析方法系列（学习/可解释学习.md 544-1410 拆分）----
+art("interpretability/circuit-foundations",
+    "电路分析入门：从先备知识到 Logit Lens 与激活修补",
+    [("学习/可解释学习.md", (544, 729))], "机制可解释性",
+    ["可解释性", "电路分析", "Logit Lens", "激活修补"],
+    intro="电路分析是机制可解释性的核心工具箱。本篇先铺垫先备知识 —— "
+          "Transformer 三件套、QK 与 OV 电路、什么是「电路」、叠加与多语义性、"
+          "以及观察与干预的根本区别；再讲最朴素的透视镜 Logit Lens / Tuned Lens，"
+          "以及电路分析的基石：激活修补（activation patching）。")
+
+art("interpretability/path-patching-eap-acdc",
+    "路径级因果追踪：Path Patching、EAP 与 ACDC",
+    [("学习/可解释学习.md", (730, 929))], "机制可解释性",
+    ["可解释性", "Path Patching", "EAP", "ACDC", "因果干预"],
+    intro="在激活修补的基础上，如何更细粒度、更高效、更自动化地定位电路？"
+          "本篇讲三种递进的方法：把因果追踪下沉到路径级的 Path Patching、"
+          "用梯度近似把开销降低约三个数量级的 Attribution Patching（EAP）、"
+          "以及自动化的电路发现 ACDC。")
+
+art("interpretability/sae-and-causal-scrubbing",
+    "验证与破解叠加：Causal Scrubbing 与稀疏自编码器",
+    [("学习/可解释学习.md", (930, 1125))], "机制可解释性",
+    ["可解释性", "SAE", "稀疏自编码器", "Causal Scrubbing", "叠加"],
+    intro="找到候选电路之后，如何严格验证它？又该如何处理「一个神经元对应多个概念」的叠加问题？"
+          "本篇讲严格验证电路假设的 Causal Scrubbing、破解叠加的关键工具稀疏自编码器（SAE），"
+          "以及把 SAE 与因果干预结合起来的 Sparse Feature Circuits。")
+
+art("interpretability/circuit-methods-frontier",
+    "电路分析前沿：Transcoder、DAS 与综合工作流",
+    [("学习/可解释学习.md", (1126, 1410))], "机制可解释性",
+    ["可解释性", "Transcoder", "DAS", "工具链", "选型"],
+    intro="本篇覆盖穿透 MLP 黑盒的 Transcoder 与 Cross-Layer Transcoder、"
+          "基于因果抽象的分布式对齐搜索（DAS），"
+          "并给出把这些方法串起来的综合工作流、工具与上手路径，以及一份方法选型速查表。")
+
 art("interpretability/attribution-graphs",
     "归因图、特征分解与 QK 归因：Transformer 可解释性方法入门",
     [("学习/可解释博文.md", None)], "机制可解释性",
@@ -477,6 +512,9 @@ RE_EMBED_LEFT = re.compile(
     r"^!.*(?:Pasted image|attachments/|\.(?:png|jpe?g|gif|svg|webp))",
     re.IGNORECASE,
 )
+# AI 对话导出残留的检索引用标记，如 【turn2search10】【turn5fetch0】【turn18find0】
+# 对读者是无意义的噪声，全局剥离
+RE_TURN_MARK = re.compile(r"【turn\d+(?:search|fetch|find)\d+】")
 
 
 def clean_wikilink(m):
@@ -534,6 +572,10 @@ def clean_text(lines, drop_regex, replace=None):
                 break
         if hit:
             continue
+
+        # 全局剥离 AI 对话导出的检索引用标记
+        if RE_TURN_MARK.search(ln):
+            ln = RE_TURN_MARK.sub("", ln)
 
         # 定点改写（润色措辞 / 脱敏 / 去对话体）
         for pat, rep in (replace or []):
