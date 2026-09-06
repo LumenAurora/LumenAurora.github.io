@@ -413,7 +413,7 @@ art("engineering/ai-in-finance",
 # ============ 二次编排（去对话体 / 措辞润色 / 脱敏后发布）============
 # 这几篇原始笔记内容有价值，但夹杂对话体痕迹、网络用语或对同行的激烈评价，
 # 因此通过 replace 做定点改写后再发布；必要处用 drop_regex 整行删除。
-art("essays/starting-research",
+art("methodology/starting-research",
     "本科生如何开启科研：一份访谈整理的经验",
     [("drafts/starting-research.md", None)], "研究方法论",
     ["科研入门", "本科生", "科研经验", "研究方法"],
@@ -609,9 +609,33 @@ def yaml_str(val):
     return '"' + s + '"'
 
 
+# slug 顶层目录 -> 对应 category（用于校验二者是否一致）
+DIR_TO_CATEGORY = {
+    "interpretability": "机制可解释性",
+    "generative": "生成模型",
+    "representation": "表征与世界模型",
+    "post-training": "后训练与推理",
+    "rl": "强化学习",
+    "math": "数学基础",
+    "methodology": "研究方法论",
+    "surveys": "领域综述",
+    "essays": "随笔",
+    "vlm": "视觉语言模型",
+    "engineering": "工程与应用",
+}
+
+
 def build():
     report = []
     for a in A:
+        # slug 目录必须与 category 一致：目录决定 URL 与侧边栏归属，
+        # category 只决定归档分组。二者不一致会导致侧边栏链接 404。
+        top = a["slug"].split("/")[0]
+        if a["category"] and DIR_TO_CATEGORY.get(top) != a["category"]:
+            print(f"[不一致] {a['slug']} 的目录 '{top}' 与 category "
+                  f"'{a['category']}' 不匹配（应放入 "
+                  f"'{DIR_TO_CATEGORY.get(top)}' 以外的目录）")
+
         parts = []
         newest = None
         for idx, (rel, rng) in enumerate(a["srcs"]):
