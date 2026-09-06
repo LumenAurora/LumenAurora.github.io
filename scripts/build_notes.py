@@ -27,10 +27,14 @@ A = []
 
 
 def art(slug, title, srcs, category, tags=None, drops=None,
-        drop_regex=None, intro=None, sections=None):
+        drop_regex=None, intro=None, sections=None, replace=None):
+    """replace: [(正则, 替换串)]，用于对原文做定点改写（润色措辞、脱敏、去对话体）。
+
+    与 drop_regex 的区别：drop_regex 整行删除；replace 保留该行但改写其中词句。
+    """
     A.append(dict(slug=slug, title=title, srcs=srcs, category=category,
                   tags=tags or [], drops=drops or [], drop_regex=drop_regex or [],
-                  intro=intro, sections=sections))
+                  intro=intro, sections=sections, replace=replace or []))
 
 
 # ============ 机制可解释性 ============
@@ -406,6 +410,62 @@ art("engineering/ai-in-finance",
           "本文梳理在金融中「寻找不变性」的几条出路：风格化事实、协整关系、机制转换、因果关系，"
           "以及元学习 / 序贯学习等方法论层面的适应策略。")
 
+# ============ 二次编排（去对话体 / 措辞润色 / 脱敏后发布）============
+# 这几篇原始笔记内容有价值，但夹杂对话体痕迹、网络用语或对同行的激烈评价，
+# 因此通过 replace 做定点改写后再发布；必要处用 drop_regex 整行删除。
+art("essays/starting-research",
+    "本科生如何开启科研：一份访谈整理的经验",
+    [("drafts/starting-research.md", None)], "研究方法论",
+    ["科研入门", "本科生", "科研经验", "研究方法"],
+    intro="科研在论文纸面上看不到它究竟如何进行的。这份笔记整理自一次科研经验访谈，"
+          "记录了一位本科生从「一年半颗粒无收」到「慢慢上道」的真实路径："
+          "第一个项目为什么会失败、一次失败的答辩如何成为转折点、"
+          "为什么应当尽早走完一个完整的科研循环，以及如何平衡学业与科研。")
+
+art("methodology/real-research-vs-padding",
+    "如何辨别真研究与跟风式工作：三个门槛",
+    [("drafts/real-research-vs-padding.md", None)], "研究方法论",
+    ["研究品味", "选题", "学术评价", "科研判断"],
+    intro="一个方向会不会流于跟风，核心看三个门槛：理论门槛、落地门槛、可证伪门槛。"
+          "本文用这三把尺子重新审视深度学习基础理论、新型架构、因果推理、高效优化，"
+          "以及 AI Safety、AI for Science、垂直领域等常被误判的方向，"
+          "最后给出避开跟风、做有价值工作的三条底线。")
+
+art("essays/human-value-in-ai-era",
+    "大模型时代，人不可替代的价值在哪里",
+    [("你还想学吗/ai科研是什么东西.md", (202, 254))], "随笔",
+    ["AI 与劳动", "人的价值", "大模型", "研究品味"],
+    replace=[
+        (r"你怀念的“以前绞尽脑汁设计特征的智力成果”", "所谓“绞尽脑汁设计特征的智力成果”"),
+        (r"你说的", ""),
+        (r"你一直吐槽的", "前文提到的"),
+        (r"你之前吐槽的", "前文提到的"),
+        (r"^你觉得", "认为"),
+    ],
+    intro="大模型淘汰的从来不是人的智力价值，而是「把智力浪费在执行层体力劳动」的那部分工作。"
+          "本文梳理人在大模型时代真正不可替代的五件事：定义问题、构建底层理论、"
+          "复杂系统的架构设计与风险兜底、价值观与对齐的顶层设计、跨学科的创造性融合。")
+
+art("essays/bitter-lesson-inductive-bias",
+    "苦涩教训再解读：为什么胜出的是 Attention 和扩散模型",
+    [("你还想学吗/ai是个什么东西.md", None)], "随笔",
+    ["苦涩教训", "归纳偏置", "架构演进", "初学者"],
+    drop_regex=[
+        r"^你这个类比简直绝妙.*$",
+        r"^你这个\[doge\].*$",
+        r"^你这句话总结得精准到.*$",
+        r"^最后，再用你的幽默回敬一下：.*$",
+    ],
+    replace=[
+        (r"^你的困惑在于", "困惑在于"),
+        (r"^你的问题翻译过来就是", "这个问题翻译过来就是"),
+        (r"^所以，你的\[doge\]表情用得太对了。因为", "因为"),
+    ],
+    intro="如果「越少的归纳偏置越好」，那为什么胜出的不是最朴素的残差 FFN，"
+          "而是 Attention 和扩散模型？本文给出关键区分：苦涩教训追求的「少」，"
+          "不是物理零件数的少，而是对目标功能预设的少 —— "
+          "胜出的是那种能最高效地把算力转化为智能的、恰到好处的结构。")
+
 # ---------------------------------------------------------------- 清洗规则
 RE_WIKILINK = re.compile(r"\[\[([^\]|]+)(?:\|([^\]]+))?\]\]")
 RE_HIGHLIGHT = re.compile(r"==([^=]+)==")
@@ -440,7 +500,7 @@ def clean_callout(m):
     return f"{indent}::: {tag} {title}".rstrip()
 
 
-def clean_text(lines, drop_regex):
+def clean_text(lines, drop_regex, replace=None):
     out = []
     fm_started = False
     in_front = False
@@ -474,6 +534,10 @@ def clean_text(lines, drop_regex):
                 break
         if hit:
             continue
+
+        # 定点改写（润色措辞 / 脱敏 / 去对话体）
+        for pat, rep in (replace or []):
+            ln = re.sub(pat, rep, ln)
 
         # callout
         m = RE_CALLOUT.match(ln)
@@ -551,7 +615,9 @@ def build():
         parts = []
         newest = None
         for idx, (rel, rng) in enumerate(a["srcs"]):
-            src = SRC_ROOT / rel
+            # drafts/ 开头的源文件位于博客仓库内（人工重写的定稿），
+            # 其余一律来自 Obsidian 笔记库
+            src = (ROOT / rel) if rel.startswith("drafts/") else (SRC_ROOT / rel)
             if not src.exists():
                 print(f"[缺失] {rel}")
                 continue
@@ -564,7 +630,7 @@ def build():
             for (s, e) in drops:
                 if idx == 0:
                     raw = raw[: s - 1] + raw[e:]
-            body = clean_text(raw, a["drop_regex"])
+            body = clean_text(raw, a["drop_regex"], a["replace"])
             if a["sections"] and len(a["srcs"]) > 1:
                 parts.append(f"\n## {a['sections'][idx]}\n")
             parts.extend(body)
