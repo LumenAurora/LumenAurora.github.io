@@ -31,6 +31,11 @@ export default defineConfig({
   lastUpdated: true,
   cleanUrls: true,
 
+  // drafts/ 是 build_notes.py 的「输入」目录（枢纽导读的原始稿），
+  // 不是对外发布的页面。排除它，避免 VitePress 把草稿当页面编译，
+  // 也避免草稿内的相对链接被当成死链导致构建失败。已发布的版本在 notes/ 下。
+  srcExclude: ['**/drafts/**'],
+
   markdown: {
     // 渲染 LaTeX：$...$、$$...$$、\(...\)、\[...\]
     config(md) {
@@ -95,6 +100,12 @@ export default defineConfig({
     sidebar: {
       '/notes/interpretability/': [
         {
+          text: '机制可解释性 · 导读',
+          items: [
+            { text: '学习路径总览（读这篇先）', link: '/notes/interpretability/roadmap' },
+          ],
+        },
+        {
           text: '入门与基础',
           items: [
             { text: '机制可解释性是什么', link: '/notes/interpretability/what-is-mi' },
@@ -113,13 +124,14 @@ export default defineConfig({
           ],
         },
         {
-          text: 'Anthropic 系统教程',
+          text: 'Anthropic 系统教程 · 归因图三部曲',
           items: [
             { text: 'Anthropic 可解释性系统（七层路径）', link: '/notes/interpretability/anthropic-mi-system' },
             { text: '替换模型与 Transcoder', link: '/notes/interpretability/replacement-model-transcoder' },
-            { text: '归因图构建', link: '/notes/interpretability/attribution-graph-deepdive' },
-            { text: '工具链、验证与实践', link: '/notes/interpretability/toolchain-validation-practice' },
+            { text: '归因图入门（是什么/怎么衔接）', link: '/notes/interpretability/attribution-graphs' },
+            { text: '归因图构建（从替换模型到快照）', link: '/notes/interpretability/attribution-graph-deepdive' },
             { text: '归因图解剖与因果配方', link: '/notes/interpretability/attribution-graph-anatomy' },
+            { text: '工具链、验证与实践', link: '/notes/interpretability/toolchain-validation-practice' },
           ],
         },
         {
@@ -145,8 +157,6 @@ export default defineConfig({
         {
           text: '全景与方法',
           items: [
-            { text: '归因图与特征分解', link: '/notes/interpretability/attribution-graphs' },
-            { text: '可解释性全景框架', link: '/notes/interpretability/interpretability-map' },
             { text: '扩散模型的可解释性', link: '/notes/interpretability/diffusion-interpretability' },
             { text: '行为可解释性', link: '/notes/interpretability/behavioral-interpretability' },
             { text: '注意力分析', link: '/notes/interpretability/attention-analysis' },
@@ -208,16 +218,31 @@ export default defineConfig({
       ],
       '/notes/methodology/': [
         {
-          text: '研究方法论',
+          text: '研究方法论 · 导读',
+          items: [
+            { text: '研究方法论总览（读这篇先）', link: '/notes/methodology/hub' },
+          ],
+        },
+        {
+          text: '论文写作',
           items: [
             { text: 'Benchmark 论文写作', link: '/notes/methodology/benchmark-writing' },
-            { text: '分析类论文如何有趣', link: '/notes/methodology/analysis-paper' },
             { text: '方法类论文的 Idea 生成', link: '/notes/methodology/idea-generation' },
             { text: 'AI 算法设计的底层逻辑', link: '/notes/methodology/algorithm-design' },
             { text: '方法类文章的实验观', link: '/notes/methodology/method-paper' },
             { text: '如何框定研究问题', link: '/notes/methodology/problem-scoping' },
+          ],
+        },
+        {
+          text: '评测与审稿',
+          items: [
             { text: '可靠性 Benchmark 研究', link: '/notes/methodology/reliability-benchmark' },
             { text: '审稿维度的系统梳理', link: '/notes/methodology/review-dimensions' },
+          ],
+        },
+        {
+          text: '方向与地图',
+          items: [
             { text: '研究方向地图', link: '/notes/methodology/research-directions-map' },
             { text: '推理时优化方法分类体系', link: '/notes/methodology/training-free-inference-taxonomy' },
             { text: '本科生如何开启科研', link: '/notes/methodology/starting-research' },
@@ -229,6 +254,7 @@ export default defineConfig({
         {
           text: '领域综述',
           items: [
+            { text: '领域综述导读（读这篇先）', link: '/notes/surveys/hub' },
             { text: 'ICML 十年脉络', link: '/notes/surveys/icml-decade' },
             { text: 'CVPR 十年谈', link: '/notes/surveys/cvpr-decade' },
             { text: '图神经网络的演进', link: '/notes/surveys/gnn-evolution' },
@@ -241,21 +267,37 @@ export default defineConfig({
       ],
       '/notes/essays/': [
         {
-          text: '随笔',
+          text: '随笔 · 导读',
           items: [
-            { text: '复杂系统与计算不可约', link: '/notes/essays/complex-systems' },
-            { text: '具身智能', link: '/notes/essays/embodied-intelligence' },
-            { text: '尚未解决的开放问题', link: '/notes/essays/big-questions' },
-            { text: '科学与工程的分野', link: '/notes/essays/science-vs-engineering' },
-            { text: '复利思想与研究壁垒', link: '/notes/essays/hamming-compound' },
-            { text: '以小博大的研究案例', link: '/notes/essays/lean-research' },
+            { text: '随笔总览（读这篇先）', link: '/notes/essays/hub' },
+          ],
+        },
+        {
+          text: '科研心态与方向',
+          items: [
             { text: '如何选择研究方向', link: '/notes/essays/choose-direction' },
             { text: '路在何方', link: '/notes/essays/path-forward' },
             { text: '顶会论文该怎么读', link: '/notes/essays/research-judgment' },
             { text: '什么才算真正的科研贡献', link: '/notes/essays/what-counts-as-research' },
+            { text: '复利思想与研究壁垒', link: '/notes/essays/hamming-compound' },
+            { text: '以小博大的研究案例', link: '/notes/essays/lean-research' },
+          ],
+        },
+        {
+          text: '科学哲学',
+          items: [
+            { text: '科学与工程的分野', link: '/notes/essays/science-vs-engineering' },
             { text: '科学作为天职（韦伯）', link: '/notes/essays/science-as-vocation' },
-            { text: '人的不可替代价值', link: '/notes/essays/human-value-in-ai-era' },
+            { text: '尚未解决的开放问题', link: '/notes/essays/big-questions' },
             { text: '苦涩教训再解读', link: '/notes/essays/bitter-lesson-inductive-bias' },
+          ],
+        },
+        {
+          text: '技术与社会',
+          items: [
+            { text: '复杂系统与计算不可约', link: '/notes/essays/complex-systems' },
+            { text: '具身智能', link: '/notes/essays/embodied-intelligence' },
+            { text: '人的不可替代价值', link: '/notes/essays/human-value-in-ai-era' },
           ],
         },
       ],
@@ -292,6 +334,12 @@ export default defineConfig({
       ],
       '/notes/ml-theory/': [
         {
+          text: '机器学习理论 · 导读',
+          items: [
+            { text: '精读路径总览（读这篇先）', link: '/notes/ml-theory/roadmap' },
+          ],
+        },
+        {
           text: '以数学观之',
           items: [
             { text: '数学工具对应关系', link: '/notes/ml-theory/math-viewpoint' },
@@ -304,7 +352,6 @@ export default defineConfig({
             { text: '（二）真实风险、经验风险与 ERM', link: '/notes/ml-theory/ch2-risk-and-erm' },
             { text: '（三）过拟合的本质与归纳偏置', link: '/notes/ml-theory/ch2-overfitting-inductive-bias' },
             { text: '（四）有限假设类的泛化保证', link: '/notes/ml-theory/ch2-finite-generalization-proof' },
-            { text: '（五）延展、层次塔与习题', link: '/notes/ml-theory/ch2-extensions-exercises' },
           ],
         },
         {
@@ -314,7 +361,6 @@ export default defineConfig({
             { text: '（二）Sample Complexity 与 Agnostic PAC', link: '/notes/ml-theory/ch3-sample-complexity-agnostic' },
             { text: '（三）Bayes Optimal 与 Agnostic PAC', link: '/notes/ml-theory/ch3-bayes-agnostic-pac' },
             { text: '（四）General Loss 与 Proper/Improper', link: '/notes/ml-theory/ch3-general-loss' },
-            { text: '（五）证明工具箱、习题与压缩', link: '/notes/ml-theory/ch3-proof-tools-exercises' },
           ],
         },
         {
@@ -325,7 +371,14 @@ export default defineConfig({
             { text: '（三）Hoeffding 不等式', link: '/notes/ml-theory/ch4-hoeffding' },
             { text: '（四）放回 ML、Union Bound 与样本复杂度', link: '/notes/ml-theory/ch4-back-to-ml-union-bound' },
             { text: '（五）证明工具箱与适用边界', link: '/notes/ml-theory/ch4-toolbox-applicability' },
-            { text: '（六）Discretization、习题与压缩', link: '/notes/ml-theory/ch4-discretization-exercises' },
+          ],
+        },
+        {
+          text: '习题与延展（附录）',
+          items: [
+            { text: '第二章（五）延展、层次塔与习题', link: '/notes/ml-theory/ch2-extensions-exercises' },
+            { text: '第三章（五）证明工具箱、习题与压缩', link: '/notes/ml-theory/ch3-proof-tools-exercises' },
+            { text: '第四章（六）Discretization、习题与压缩', link: '/notes/ml-theory/ch4-discretization-exercises' },
           ],
         },
       ],

@@ -170,7 +170,7 @@ art("interpretability/intuition-world-model",
 
 art("interpretability/unified-methodology",
     "可解释性方法论的统一图景：以残差流为主干",
-    [("学习/可解释学习.md", (3943, 4247))], "机制可解释性",
+    [("学习/可解释学习.md", (3943, 4243))], "机制可解释性",
     ["可解释性", "方法论", "残差流", "统一框架", "SAE"],
     drops=[(1, 1)],
     intro="为什么可解释性的方法让人感觉「不统一」？本文以残差流为唯一本体论基底，"
@@ -249,10 +249,9 @@ art("interpretability/attribution-graphs",
           "讲清楚归因图（attribution graphs）、特征分解与 QK 归因分别在做什么、"
           "彼此如何衔接。")
 
-art("interpretability/interpretability-map",
-    "可解释性研究的全景框架",
-    [("经典方法/可解释性.md", None)], "机制可解释性",
-    ["可解释性", "方法论", "因果干预"])
+# 原 interpretability/interpretability-map（整文件 1:1 映射自 经典方法/可解释性.md，未打磨思维流 dump）
+# 已合并进 interpretability/unified-methodology（源 学习/可解释学习.md 3943–4247，已覆盖其全部观点），
+# 由 interpretability/roadmap 承接「全景框架」的导读角色。故删除该 art() 条目。
 
 art("interpretability/diffusion-interpretability",
     "扩散模型的可解释性",
@@ -271,6 +270,15 @@ art("interpretability/attention-analysis",
     "注意力分析方法梳理",
     [("论文笔记/注意力分析.md", None)], "机制可解释性",
     ["可解释性", "注意力"])
+
+# 机制可解释性学习路径总览（串联 28 篇的导航枢纽；替代原 interpretability-map 的「全景框架」角色）
+art("interpretability/roadmap",
+    "机制可解释性学习路径总览",
+    [("drafts/interpretability-roadmap.md", None)], "机制可解释性",
+    ["可解释性", "学习路径", "导读", "导航"],
+    intro="机制可解释性是本站体量最大的一族（28 篇），大多来自同一份长笔记的章节切分，"
+          "本是完整学习路径但原文平铺。本页把它们串成带前置依赖的阅读路线，"
+          "并标出归因图三部曲（入门→构建→解剖）的连续递进与每篇在路线里的位置。")
 
 # ============ 生成模型 ============
 art("generative/diffusion-models",
@@ -968,6 +976,40 @@ def yaml_str(val):
     s = re.sub(r"\s+", " ", s).strip()
     return '"' + s + '"'
 
+
+# ============ 导读枢纽页（统整已发布内容）============
+art("ml-theory/roadmap",
+    "机器学习理论精读路径总览",
+    [("drafts/ml-theory-roadmap.md", None)], "机器学习理论",
+    ["机器学习理论", "导读", "学习路径"],
+    intro="机器学习理论这 17 篇是对一本 Understanding ML 类教材的逐章精读，本是天然学习路径，"
+          "缺的只是「章与章之间在升级什么」的导读。本页补上骨架：第二章在有限类 + Realizable 下"
+          "证明 ERM 收敛（基线）→ 第三章升级为 PAC / Agnostic（去掉 Realizability）→ 第四章用 "
+          "Uniform Convergence 把样本复杂度收束成可计算的界，并标出三篇习题章为可选附录。")
+
+art("methodology/hub",
+    "研究方法论总览",
+    [("drafts/methodology-hub.md", None)], "研究方法论",
+    ["研究方法论", "导读", "导航"],
+    intro="研究方法论这 12 篇原本平铺在侧边栏，读者不知从哪进。本页把它们分成论文写作 / 评测与审稿 "
+          "/ 方向与地图三条线，并标出阅读顺序，与顶部「研究品味」五篇构成同一主题的两种切面——"
+          "研究品味教你怎么「选得好、写得有趣」，方法论教你怎么「做得扎实、经得起审」。")
+
+art("surveys/hub",
+    "领域综述导读",
+    [("drafts/surveys-hub.md", None)], "领域综述",
+    ["领域综述", "导读", "导航"],
+    intro="领域综述这 7 篇是对几个领域「十年脉络 + 关键转折」的纵向梳理，不是教科书。本页按领域"
+          "（视觉/多模态、图/序列、大模型能力与安全、会议生态）给一张索引，标出每篇适合在什么场景读，"
+          "方便按研究方向挑读或在写 related work 前抓取叙事锚点。")
+
+art("essays/hub",
+    "随笔总览",
+    [("drafts/essays-hub.md", None)], "随笔",
+    ["随笔", "导读", "导航"],
+    intro="随笔这 13 篇主题跨度大、平铺时显得零散。本页按科研心态与方向 / 科学哲学 / 技术与社会"
+          "三条线重组，并标出每篇适合在什么心境下读；随笔偏「道」与心态，方法论偏「术」与流程，"
+          "二者搭配可覆盖从方向焦虑到具体执行的完整链路。")
 
 # slug 顶层目录 -> 对应 category（用于校验二者是否一致）
 DIR_TO_CATEGORY = {
