@@ -107,6 +107,47 @@ art("interpretability/circuit-methods-frontier",
           "基于因果抽象的分布式对齐搜索（DAS），"
           "并给出把这些方法串起来的综合工作流、工具与上手路径，以及一份方法选型速查表。")
 
+# ---- Anthropic 系统教程（学习/可解释学习.md 1411-3547 拆分）----
+art("interpretability/anthropic-mi-system",
+    "Anthropic 的可解释性系统：从黑盒到玻璃盒的七层路径",
+    [("学习/可解释学习.md", (1411, 2131))], "机制可解释性",
+    ["可解释性", "Anthropic", "归因图", "SAE", "初学者"],
+    drops=[(1, 17)],  # 删除源文件开头的文档标题与 Obsidian 目录导航（网页 TOC 无用，且锚点已剥离）
+    intro="一份以 Anthropic 工作为线索、面向初学者的机制可解释性系统导览：从残差流视角、"
+          "QK/OV 分解、Induction Head，到 Superposition、稀疏自编码器、Circuit Tracing 与 "
+          "QK Attribution，最后汇总技术栈、应用案例与学习路线图。")
+
+art("interpretability/replacement-model-transcoder",
+    "替换模型与 Cross-Layer Transcoder：把 MLP 和 Attention 拆开看",
+    [("学习/可解释学习.md", (2132, 2359))], "机制可解释性",
+    ["可解释性", "替换模型", "Transcoder", "CLT", "LORSA"],
+    intro="Anthropic 近年把「直接分析神经元」推进为「用训练好的替换模型替代原组件」："
+          "MLP 被 Cross-Layer Transcoder 替代、Attention 被 Multi-Token Transcoder / LORSA 替代，"
+          "最终得到 Complete Replacement Model。本文讲这套替换思想的动机、架构与学到的内容。")
+
+art("interpretability/attribution-graph-deepdive",
+    "归因图构建：从替换模型到完整计算快照",
+    [("学习/可解释学习.md", (2360, 2893))], "机制可解释性",
+    ["可解释性", "归因图", "Jacobian", "IOI", "计算图"],
+    intro="归因图（attribution graph）把一次前向传播展开成节点（特征）与边（特征间因果效应）的计算图。"
+          "本文保姆级拆解其生成算法（前向收集激活 → 反向 Jacobian 追踪 → 后处理可视化），"
+          "并以 IOI 任务为例走通，最后补全 QK Attribution 这块拼图。")
+
+art("interpretability/toolchain-validation-practice",
+    "工具链工作流、验证体系与动手实践",
+    [("学习/可解释学习.md", (2894, 3209))], "机制可解释性",
+    ["可解释性", "工具链", "验证", "因果干预", "实践"],
+    intro="把前述替换模型、归因图等方法串成端到端工作流，并讨论「什么算被解释了」这一根本问题："
+          "从重建保真度、归因图内在一致性，到因果干预测试的金标准，最后给出哲学总结与本地动手路线。")
+
+art("interpretability/attribution-graph-anatomy",
+    "归因图的解剖与因果干预配方",
+    [("学习/可解释学习.md", (3210, 3547))], "机制可解释性",
+    ["可解释性", "归因图", "因果干预", "注意力", "CoT"],
+    intro="聚焦归因图本身的精确含义：节点到底是什么、边到底度量什么、归因图的完整构成，"
+          "以及「注意力分析」一词在不同粒度下究竟指什么。最后给出一个可执行的因果证明配方"
+          "（Teacher-Forcing 局部干预 + Attention Knockout + Path Patching + 双向验证）。")
+
 art("interpretability/attribution-graphs",
     "归因图、特征分解与 QK 归因：Transformer 可解释性方法入门",
     [("学习/可解释博文.md", None)], "机制可解释性",
@@ -515,6 +556,8 @@ RE_EMBED_LEFT = re.compile(
 # AI 对话导出残留的检索引用标记，如 【turn2search10】【turn5fetch0】【turn18find0】
 # 对读者是无意义的噪声，全局剥离
 RE_TURN_MARK = re.compile(r"【turn\d+(?:search|fetch|find)\d+】")
+# Obsidian / AI 导出残留的 HTML 锚点（目录导航用，网页上无功能且会让 TOC 链接失效），全局剥离
+RE_ANCHOR = re.compile(r"<a\s+name=[^>]*>(?:\s*</a>)?")
 
 
 def clean_wikilink(m):
@@ -563,6 +606,11 @@ def clean_text(lines, drop_regex, replace=None):
             continue
         if ln.strip():
             seen_content = True
+
+        # 剥离 HTML 锚点（Obsidian 目录导航残留，网页上无功能）
+        ln = RE_ANCHOR.sub("", ln)
+        if "</a>" in ln:
+            ln = ln.replace("</a>", "")
 
         # 正则删除
         hit = False

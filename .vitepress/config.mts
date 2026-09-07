@@ -93,16 +93,36 @@ export default defineConfig({
     sidebar: {
       '/notes/interpretability/': [
         {
-          text: '机制可解释性',
+          text: '入门与基础',
           items: [
             { text: '机制可解释性是什么', link: '/notes/interpretability/what-is-mi' },
             { text: 'Transformer 的条件线性', link: '/notes/interpretability/conditional-linearity' },
             { text: '特权基', link: '/notes/interpretability/privileged-bases' },
             { text: '路径分解', link: '/notes/interpretability/path-decomposition' },
+          ],
+        },
+        {
+          text: '电路分析方法',
+          items: [
             { text: '电路分析入门', link: '/notes/interpretability/circuit-foundations' },
             { text: '路径级因果追踪', link: '/notes/interpretability/path-patching-eap-acdc' },
             { text: 'Causal Scrubbing 与 SAE', link: '/notes/interpretability/sae-and-causal-scrubbing' },
             { text: '前沿方法与综合工作流', link: '/notes/interpretability/circuit-methods-frontier' },
+          ],
+        },
+        {
+          text: 'Anthropic 系统教程',
+          items: [
+            { text: 'Anthropic 可解释性系统（七层路径）', link: '/notes/interpretability/anthropic-mi-system' },
+            { text: '替换模型与 Transcoder', link: '/notes/interpretability/replacement-model-transcoder' },
+            { text: '归因图构建', link: '/notes/interpretability/attribution-graph-deepdive' },
+            { text: '工具链、验证与实践', link: '/notes/interpretability/toolchain-validation-practice' },
+            { text: '归因图解剖与因果配方', link: '/notes/interpretability/attribution-graph-anatomy' },
+          ],
+        },
+        {
+          text: '全景与方法',
+          items: [
             { text: '归因图与特征分解', link: '/notes/interpretability/attribution-graphs' },
             { text: '可解释性全景框架', link: '/notes/interpretability/interpretability-map' },
             { text: '扩散模型的可解释性', link: '/notes/interpretability/diffusion-interpretability' },
