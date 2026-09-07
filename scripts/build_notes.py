@@ -505,16 +505,46 @@ art("ml-theory/ch4-discretization-exercises",
           "（高概率趋零 ⇔ 期望趋零）、习题 2（Loss Range 推广），最后用世界模型与抽象层次塔收束第四章，"
           "并做极限压缩与对后续的前瞻。")
 
+# ============ 研究品味（由 论文之道/分析类如何有趣.md 二次编排为系列）============
+# 该源文件内容极长（两千余行），且混杂对话体、私人指代与重复章节，不适合 1:1 发布；
+# 改为人工合成的五篇定稿（drafts/），按「定义 → 范本 → 选题 → 新时代 → 句法」组织。
+art("research-taste/what-is-interesting",
+    "什么是「有趣」的研究：五个可操作的维度",
+    [("drafts/research-taste-what-is-interesting.md", None)], "研究品味",
+    ["研究品味", "分析方法", "novelty", "选题"],
+    intro="顶会分析论文的「惊讶感」通常来自四件事同时发生：选中承重信念、用极简实验让隐含预测与现实冲突、排除廉价解释、把冲突压缩成能生成新预测的新概念。本文把「有趣」拆成五个可度量、可追求的维度，并区分「有趣的结果」与「好课题」这两个常被混为一谈的概念。")
+
+art("research-taste/classic-analyses",
+    "顶会分析论文做对了什么：七篇范本拆解",
+    [("drafts/research-taste-classic-analyses.md", None)], "研究品味",
+    ["研究品味", "分析方法", "论文写作", "范本"],
+    intro="列举七篇获奖或成为方法论范本的顶会分析论文，重点不是模仿题目，而是抽取「认知更新是如何被制造出来的」——它们共同的可复用结构，以及背后的共用技术栈（最小反事实、负对照、打破相关性、从终点到动态、相关升级到干预、重定义测量对象）。")
+
+art("research-taste/topic-generation",
+    "如何自上而下地产生研究课题",
+    [("drafts/research-taste-topic-generation.md", None)], "研究品味",
+    ["研究品味", "选题", "研究方法", "复利"],
+    intro="最有效的起点不是「选一个新模型看看」，而是建立领域的承重信念地图，再用固定的「问题生成算子」系统地派生课题。本文给出因果—评测链条、承重假设的识别、八类算子、替代机制矩阵、证据阶梯、研究飞轮与一页纸选题模板，并附 NeurIPS 2026 的贡献类型说明。")
+
+art("research-taste/foundation-era",
+    "大模型时代的「有趣」：六类识别问题与十条范本",
+    [("drafts/research-taste-foundation-era.md", None)], "研究品味",
+    ["研究品味", "大模型", "分析方法", "评测"],
+    intro="深度学习时代的分析范式不能直接外推到大模型时代——研究对象从固定函数变成有隐藏变量、有反馈、推理时计算可变的闭环系统。本文重定义新时代的「有趣」（结构中心性、跨模型半衰期、资产复用性），并拆解十条近期范本，提炼新时代技术栈、课题生成算子、三条复利主线和选题评分表。")
+
+art("research-taste/sentence-patterns",
+    "分析类论文的 18 个句法骨架",
+    [("drafts/research-taste-sentence-patterns.md", None)], "研究品味",
+    ["研究品味", "论文写作", "句法", "选题"],
+    intro="顶会分析论文常用一套「句法」把研究对象、机制变量、证据结构与行动结论黏合成可检验、可反驳、可行动的研究主张。本文给出 18 类句法骨架，每类附一篇对应范文，并点出三类常见卡点——缺可操控的 M、无反事实构造、「必要性」未写成条件句。")
+
 # ============ 研究方法论 ============
 art("methodology/benchmark-writing",
     "Benchmark 论文写作：从心理测量学借一套方法论",
     [("论文之道/benchmark写作.md", None)], "研究方法论",
     ["Benchmark", "论文写作", "评测"])
 
-art("methodology/analysis-paper",
-    "分析类论文如何做得有趣",
-    [("论文之道/分析类如何有趣.md", None)], "研究方法论",
-    ["分析类论文", "论文写作", "novelty"])
+# 原 methodology/analysis-paper（整文件 1:1 映射）已重构为「研究品味」系列，见下方 research-taste/* 五篇合成文章。
 
 art("methodology/idea-generation",
     "方法类论文的 Idea 生成框架",
@@ -943,6 +973,7 @@ DIR_TO_CATEGORY = {
     "vlm": "视觉语言模型",
     "engineering": "工程与应用",
     "ml-theory": "机器学习理论",
+    "research-taste": "研究品味",
 }
 
 

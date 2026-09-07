@@ -83,6 +83,7 @@ export default defineConfig({
         ],
       },
       { text: '研究方法论', link: '/notes/methodology/benchmark-writing' },
+      { text: '研究品味', link: '/notes/research-taste/what-is-interesting' },
       { text: '领域综述', link: '/notes/surveys/icml-decade' },
       { text: '视觉语言模型', link: '/notes/vlm/visual-encoding' },
       { text: '工程与应用', link: '/notes/engineering/python-pytorch' },
@@ -273,6 +274,18 @@ export default defineConfig({
           items: [
             { text: 'Python 与 PyTorch 工程基础', link: '/notes/engineering/python-pytorch' },
             { text: 'AI 在金融领域的非平稳性难题', link: '/notes/engineering/ai-in-finance' },
+          ],
+        },
+      ],
+      '/notes/research-taste/': [
+        {
+          text: '研究品味',
+          items: [
+            { text: '什么是「有趣」的研究', link: '/notes/research-taste/what-is-interesting' },
+            { text: '顶会分析论文做对了什么', link: '/notes/research-taste/classic-analyses' },
+            { text: '如何自上而下产生课题', link: '/notes/research-taste/topic-generation' },
+            { text: '大模型时代的「有趣」', link: '/notes/research-taste/foundation-era' },
+            { text: '分析类论文的 18 个句法骨架', link: '/notes/research-taste/sentence-patterns' },
           ],
         },
       ],
