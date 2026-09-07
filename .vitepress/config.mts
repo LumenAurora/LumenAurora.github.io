@@ -235,6 +235,7 @@ export default defineConfig({
             { text: '时间序列分析', link: '/notes/surveys/time-series' },
             { text: '从 NLP 到 LLM', link: '/notes/surveys/nlp-to-llm' },
             { text: '学界「抗幻觉」研究全史', link: '/notes/surveys/anti-hallucination' },
+            { text: '迁移学习族谱与 TTA 定位', link: '/notes/surveys/transfer-learning-tta' },
           ],
         },
       ],
