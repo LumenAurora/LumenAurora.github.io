@@ -121,6 +121,26 @@ export default defineConfig({
           ],
         },
         {
+          text: '直觉与心智图景',
+          items: [
+            { text: '初学者的直觉：文献审查与修正', link: '/notes/interpretability/intuition-self-review' },
+            { text: 'LLM 与 VLM 的直觉世界模型', link: '/notes/interpretability/intuition-world-model' },
+            { text: 'LLM 与人类认知的深度类比', link: '/notes/interpretability/cognitive-science-analogies' },
+            { text: '训练过程的可解释性世界模型', link: '/notes/interpretability/developmental-interpretability' },
+          ],
+        },
+        {
+          text: '方法论与诊断',
+          items: [
+            { text: '可解释性方法论的统一图景', link: '/notes/interpretability/unified-methodology' },
+            { text: '研究残差流 trivial 吗', link: '/notes/interpretability/residual-stream-trivial' },
+            { text: '从观察到好故事', link: '/notes/interpretability/observation-to-story' },
+            { text: '机制可解释性的「松散」诊断', link: '/notes/interpretability/mi-looseness-diagnosis' },
+            { text: 'VLM 七轴穷举框架', link: '/notes/interpretability/vlm-seven-axis' },
+            { text: 'VLM 可解释性学习路线', link: '/notes/interpretability/vlm-learning-roadmap' },
+          ],
+        },
+        {
           text: '全景与方法',
           items: [
             { text: '归因图与特征分解', link: '/notes/interpretability/attribution-graphs' },
