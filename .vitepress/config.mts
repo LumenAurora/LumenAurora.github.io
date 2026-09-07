@@ -79,6 +79,7 @@ export default defineConfig({
           { text: '后训练', link: '/notes/post-training/post-training' },
           { text: '强化学习', link: '/notes/rl/rl-principles' },
           { text: '数学基础', link: '/notes/math/sde-primer' },
+          { text: '机器学习理论', link: '/notes/ml-theory/math-viewpoint' },
         ],
       },
       { text: '研究方法论', link: '/notes/methodology/benchmark-writing' },
@@ -272,6 +273,45 @@ export default defineConfig({
           items: [
             { text: 'Python 与 PyTorch 工程基础', link: '/notes/engineering/python-pytorch' },
             { text: 'AI 在金融领域的非平稳性难题', link: '/notes/engineering/ai-in-finance' },
+          ],
+        },
+      ],
+      '/notes/ml-theory/': [
+        {
+          text: '以数学观之',
+          items: [
+            { text: '数学工具对应关系', link: '/notes/ml-theory/math-viewpoint' },
+          ],
+        },
+        {
+          text: '第二章 A Gentle Start',
+          items: [
+            { text: '（一）从世界模型到形式化框架', link: '/notes/ml-theory/ch2-world-model-framework' },
+            { text: '（二）真实风险、经验风险与 ERM', link: '/notes/ml-theory/ch2-risk-and-erm' },
+            { text: '（三）过拟合的本质与归纳偏置', link: '/notes/ml-theory/ch2-overfitting-inductive-bias' },
+            { text: '（四）有限假设类的泛化保证', link: '/notes/ml-theory/ch2-finite-generalization-proof' },
+            { text: '（五）延展、层次塔与习题', link: '/notes/ml-theory/ch2-extensions-exercises' },
+          ],
+        },
+        {
+          text: '第三章 A Formal Learning Model',
+          items: [
+            { text: '（一）PAC 学习：从能泛化到可学习', link: '/notes/ml-theory/ch3-pac-definition' },
+            { text: '（二）Sample Complexity 与 Agnostic PAC', link: '/notes/ml-theory/ch3-sample-complexity-agnostic' },
+            { text: '（三）Bayes Optimal 与 Agnostic PAC', link: '/notes/ml-theory/ch3-bayes-agnostic-pac' },
+            { text: '（四）General Loss 与 Proper/Improper', link: '/notes/ml-theory/ch3-general-loss' },
+            { text: '（五）证明工具箱、习题与压缩', link: '/notes/ml-theory/ch3-proof-tools-exercises' },
+          ],
+        },
+        {
+          text: '第四章 Learning via Uniform Convergence',
+          items: [
+            { text: '（一）动机与 ε-representative', link: '/notes/ml-theory/ch4-motivation-representative' },
+            { text: '（二）核心引理与有限类证明', link: '/notes/ml-theory/ch4-core-lemma-uc-finite' },
+            { text: '（三）Hoeffding 不等式', link: '/notes/ml-theory/ch4-hoeffding' },
+            { text: '（四）放回 ML、Union Bound 与样本复杂度', link: '/notes/ml-theory/ch4-back-to-ml-union-bound' },
+            { text: '（五）证明工具箱与适用边界', link: '/notes/ml-theory/ch4-toolbox-applicability' },
+            { text: '（六）Discretization、习题与压缩', link: '/notes/ml-theory/ch4-discretization-exercises' },
           ],
         },
       ],

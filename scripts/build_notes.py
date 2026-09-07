@@ -367,6 +367,144 @@ art("math/math-interpretation",
     [("数学/数学解读.md", None)], "数学基础",
     ["数学", "梯度", "深度学习"])
 
+# ============ 机器学习理论（由 资料/understanding ML 按章节拆分，构成一条理论课本路径）============
+# 源文档首行「本笔记采用AI辅助」为生产方法说明，不在任何行区间内，自动不发布。
+SRC_UML = "资料/understanding ML/understanding ML讲解笔记.md"
+
+art("ml-theory/math-viewpoint",
+    "以数学观之：机器学习理论背后的数学工具对应关系",
+    [(SRC_UML, (2, 32))], "机器学习理论",
+    ["机器学习理论", "数学基础", "线性代数", "概率", "初学者"],
+    intro="机器学习理论（尤其是泛化界、PAC 框架）常被误以为需要很深的数学。本文先建立「数学工具 ↔ 理论概念」的对应关系："
+          "线性代数、概率论、不等式各在理论中扮演什么角色，以及为什么说「换术语」只是表象、底层结构一致。"
+          "帮初学者在正式进入证明前先校准工具箱。")
+
+art("ml-theory/ch2-world-model-framework",
+    "第二章（一）：从世界模型到形式化框架",
+    [(SRC_UML, (35, 443))], "机器学习理论",
+    ["机器学习理论", "统计学习框架", "形式化", "初学者"],
+    intro="第二章回答一个根本问题：机器学习理论到底在证明什么？本文先建立整章的「世界模型」——"
+          "区分世界与样本、区分真实规律 f 与学习者的猜测 h，再给出统计学习框架的形式化定义"
+          "（X、Y、f、D、S、h 各是什么），把模糊的「学」变成可讨论的数学对象。")
+
+art("ml-theory/ch2-risk-and-erm",
+    "第二章（二）：真实风险、经验风险与 ERM",
+    [(SRC_UML, (444, 725))], "机器学习理论",
+    ["机器学习理论", "经验风险最小化", "ERM", "Loss"],
+    intro="有了形式化框架，就可以定义「模型到底好不好」：真实风险（期望损失）与经验风险（训练误差）。"
+          "本文讲清二者的区别，并引出经验风险最小化（ERM）——用「局部世界」（训练集）估计「真实世界」"
+          "为何如此自然又如此合理。")
+
+art("ml-theory/ch2-overfitting-inductive-bias",
+    "第二章（三）：过拟合的本质与归纳偏置",
+    [(SRC_UML, (726, 1066))], "机器学习理论",
+    ["机器学习理论", "过拟合", "归纳偏置", "泛化"],
+    intro="ERM 看似无懈可击，却埋着过拟合的危机：把训练集背下来，训练误差为零但真实误差爆炸。"
+          "本文用经典反例讲清过拟合本质，并引出机器学习的真正解药——归纳偏置（inductive bias）："
+          "你必须事先带一点偏见，才能从有限样本学到可泛化的规律。")
+
+art("ml-theory/ch2-finite-generalization-proof",
+    "第二章（四）：有限假设类的泛化保证（完整证明）",
+    [(SRC_UML, (1067, 2054))], "机器学习理论",
+    ["机器学习理论", "泛化界", "有限假设类", "Union Bound", "证明"],
+    intro="整章的高潮：有限假设类下，ERM 选出的假设能以高概率近似最优。本文逐步拆解证明——"
+          "Realizability 与 i.i.d. 两个假设、坏模型如何「骗过」训练集、Union Bound 如何控制「可坏模型不止一个」、"
+          "最后反推出样本复杂度，并逐参数解读公式，把它压缩成可机械复现的证明模板。")
+
+art("ml-theory/ch2-extensions-exercises",
+    "第二章（五）：延展、层次塔与习题",
+    [(SRC_UML, (2055, 3186))], "机器学习理论",
+    ["机器学习理论", "Uniform Convergence", "习题", "抽象层次"],
+    intro="证明之后，本章还埋下 Uniform Convergence 的伏笔、辨析「finite H 只是新手版本」等常见错觉，"
+          "用抽象层次塔梳理整章逻辑，并逐题解析课后习题（记忆分类器、经验风险的无偏性、Axis-Aligned Rectangles 等），"
+          "最后把第二章压缩成可长期记住的自动反应。")
+
+art("ml-theory/ch3-pac-definition",
+    "第三章（一）：PAC 学习——从「能泛化」到「可学习」",
+    [(SRC_UML, (3189, 3700))], "机器学习理论",
+    ["机器学习理论", "PAC", "可学习性", "定义"],
+    intro="第二章只证明「某个算法在有限类上能泛化」；第三章把问题升级为「学习问题本身是否可学习」。"
+          "本文给出 PAC 学习的正式定义，逐层解读量词顺序、两层随机性、ε 与 δ 的语义，"
+          "并解释为什么不能要求 ε=0、δ=0。")
+
+art("ml-theory/ch3-sample-complexity-agnostic",
+    "第三章（二）：Sample Complexity 与 Agnostic PAC",
+    [(SRC_UML, (3701, 4168))], "机器学习理论",
+    ["机器学习理论", "Sample Complexity", "Agnostic PAC", "Realizability"],
+    intro="把第二章的有限类定理重新解释为 PAC 样本复杂度，再迈出关键一步：删掉 Realizability 假设，进入 Agnostic PAC——"
+          "世界不再有确定的 f，而是直接定义联合分布 D over X×Y。本文讲清这一「世界模型」升级为何必要，"
+          "以及它如何让理论更贴近真实。")
+
+art("ml-theory/ch3-bayes-agnostic-pac",
+    "第三章（三）：Bayes Optimal Predictor 与 Agnostic PAC",
+    [(SRC_UML, (4169, 4812))], "机器学习理论",
+    ["机器学习理论", "Bayes", "Agnostic PAC", "误差分解"],
+    intro="如果知道整个分布 D，最佳决策是什么？本文给出 Bayes Optimal Predictor 及其证明，并把它作为理论最优基准。"
+          "随后给出 Agnostic PAC 的正式目标，展示它如何自然地把机器学习的三个误差来源（近似 / 估计 / 不可知）分开，"
+          "并解释为什么 Agnostic PAC 自动包含普通 PAC。")
+
+art("ml-theory/ch3-general-loss",
+    "第三章（四）：General Loss 抽象化与 Proper/Improper Learning",
+    [(SRC_UML, (4813, 5320))], "机器学习理论",
+    ["机器学习理论", "Loss", "General Loss", "Proper Learning"],
+    intro="「分类」只是外壳。本文把 Loss 抽象成任务自己定义的「什么叫犯错」，得到 True Risk / Empirical Risk 的最终形式，"
+          "使回归等任务自然进入框架；进而定义 General Agnostic PAC，并区分 Proper Learning 与 Improper Learning——"
+          "二者真正区分的是「你允许哪些候选解」。")
+
+art("ml-theory/ch3-proof-tools-exercises",
+    "第三章（五）：证明工具箱、习题与极限压缩",
+    [(SRC_UML, (5321, 6783))], "机器学习理论",
+    ["机器学习理论", "证明工具", "习题", "Measurability"],
+    intro="第三章真正值钱的是可迁移的证明工具：量词审计、区分三种「未知」、pointwise→expected 优化等六个工具，"
+          "以及 Measurability 等技术细节。本文逐题解析习题（Sample Complexity 单调性、无限 H 照样可学、"
+          "Concentric Circles、i.i.d. 的必要性、No-Free-Lunch），最后把第三章压缩成「八句话」并预测第四章会做什么。")
+
+art("ml-theory/ch4-motivation-representative",
+    "第四章（一）：动机与 ε-representative sample",
+    [(SRC_UML, (6786, 7092))], "机器学习理论",
+    ["机器学习理论", "Uniform Convergence", "ε-representative", "ERM"],
+    intro="第二章只证明「固定一个 h」时经验风险逼近真实风险；但 ERM 选出的 h_S 依赖训练集，不是固定的。"
+          "本文讲清这个漏洞为何致命，并引入 ε-representative sample——训练集「足够代表世界」时，ERM 的 h_S 也近似最优。"
+          "这是 Uniform Convergence 故事的真正起点。")
+
+art("ml-theory/ch4-core-lemma-uc-finite",
+    "第四章（二）：核心引理、Uniform Convergence 定义与有限类证明",
+    [(SRC_UML, (7093, 7760))], "机器学习理论",
+    ["机器学习理论", "Uniform Convergence", "Lemma 4.2", "有限假设类"],
+    intro="Lemma 4.2 证明：只要 Uniform Convergence 成立，ERM 就泛化。本文给出证明全貌与「为什么偏偏用 ε/2」的直觉，"
+          "再定义 Uniform Convergence 本身，并证明有限假设类天然满足它（取补集、并事件、Union Bound 三步）。")
+
+art("ml-theory/ch4-hoeffding",
+    "第四章（三）：Hoeffding 不等式及其完整证明",
+    [(SRC_UML, (7761, 8640))], "机器学习理论",
+    ["机器学习理论", "Hoeffding", "集中不等式", "证明"],
+    intro="固定一个 h 时，经验风险与真实风险的差距由 Hoeffding 不等式控制。本文从直觉讲到有限样本版「大数定律」，"
+          "再从头拆开证明 Hoeffding（中心化、指数化、凸性、Hoeffding's Lemma、选择 λ、上下尾），"
+          "把它压缩成可复现的模板。")
+
+art("ml-theory/ch4-back-to-ml-union-bound",
+    "第四章（四）：放回机器学习、Union Bound 与样本复杂度",
+    [(SRC_UML, (8641, 9037))], "机器学习理论",
+    ["机器学习理论", "Union Bound", "样本复杂度", "Agnostic PAC"],
+    intro="把 Hoeffding 放回机器学习，用 Union Bound 从固定 h 升级到整个有限 H；反解样本复杂度，得到 Agnostic PAC 的样本复杂度界。"
+          "本文还解释一个反直觉的点：第二章是 1/ε，第四章却变成 1/ε²——二者解决的是本质不同的任务。")
+
+art("ml-theory/ch4-toolbox-applicability",
+    "第四章（五）：证明工具箱与 Uniform Convergence 的适用边界",
+    [(SRC_UML, (9038, 10052))], "机器学习理论",
+    ["机器学习理论", "证明工具箱", "适用边界", "Discretization"],
+    intro="把第四章证明提炼成可迁移的工具箱（坏事件概率、data-dependent selection 警惕 pointwise bound、"
+          "finite class→Union Bound、经验平均→集中、优化指数界参数、数清 error budget），"
+          "并明确适用边界：H 无限、loss 不有界、数据不独立时各会怎样崩。")
+
+art("ml-theory/ch4-discretization-exercises",
+    "第四章（六）：Discretization、习题与极限压缩",
+    [(SRC_UML, (10053, 10804))], "机器学习理论",
+    ["机器学习理论", "Discretization", "习题", "极限压缩"],
+    intro="无限类能否先粗暴离散化？Remark 4.1 的 Discretization Trick 给出一种思路。本文解析习题 1"
+          "（高概率趋零 ⇔ 期望趋零）、习题 2（Loss Range 推广），最后用世界模型与抽象层次塔收束第四章，"
+          "并做极限压缩与对后续的前瞻。")
+
 # ============ 研究方法论 ============
 art("methodology/benchmark-writing",
     "Benchmark 论文写作：从心理测量学借一套方法论",
@@ -804,6 +942,7 @@ DIR_TO_CATEGORY = {
     "essays": "随笔",
     "vlm": "视觉语言模型",
     "engineering": "工程与应用",
+    "ml-theory": "机器学习理论",
 }
 
 
