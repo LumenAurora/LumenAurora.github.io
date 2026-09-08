@@ -284,7 +284,9 @@ art("interpretability/roadmap",
 art("generative/diffusion-models",
     "扩散模型：从变分下界到采样加速",
     [("学习/扩散模型.md", None)], "生成模型",
-    ["扩散模型", "生成模型", "SDE"])
+    ["扩散模型", "生成模型", "SDE"],
+    replace=[(r'所以，你觉得“割裂”恰恰是因为看到了表象，而我来帮你揭开底层那根“金线”。另外，关于CNN/Transformer的问题，你踩中了一个极深的认知陷阱，我来帮你澄清。',
+              '所以，这种「割裂」感恰恰是因为只看到了表象，而底层其实有一条统一的「金线」把它们串起来。另外，关于 CNN/Transformer 的问题，这里触及了一个很深的认知陷阱，值得专门澄清。')])
 
 art("generative/diffusion-post-training",
     "扩散模型的后训练",
@@ -320,23 +322,37 @@ art("representation/implicit-models",
 art("representation/autoregressive-internals",
     "自回归大模型的内部机制",
     [("学习/深入自回归大模型.md", None)], "表征与世界模型",
-    ["自回归", "LLM", "内部机制"])
+    ["自回归", "LLM", "内部机制"],
+    replace=[(r"下面我为你[^。]*拆解。", "下面循序渐进拆解。")])
 
 # ============ 后训练与推理 ============
 art("post-training/post-training",
     "大模型后训练：SFT、RLHF 与 RLVR",
     [("学习/大模型后训练.md", None)], "后训练与推理",
-    ["后训练", "SFT", "RLHF", "对齐"])
+    ["后训练", "SFT", "RLHF", "对齐"],
+    replace=[(r"推理模型后训练：从零开始的保姆级讲解", "推理模型后训练：从零开始的循序渐进讲解"),
+             (r"从零开始的 Bradley-Terry 奖励模型保姆级解释", "从零开始的 Bradley-Terry 奖励模型循序渐进解释")])
 
 art("post-training/post-training-techniques",
     "后训练技术谱系",
     [("论文之道/后训练技术.md", None)], "后训练与推理",
-    ["后训练", "技术谱系"])
+    ["后训练", "技术谱系"],
+    intro="本文梳理后训练的技术谱系（SFT、RLHF、RLVR、蒸馏与损失设计），"
+          "并以 Search-R1 中发现的 GRPO 坍塌现象为例，讲解其背后的「惰性似然位移（LLD）」机制，"
+          "以及对应的似然保持正则化（LLDS）解法。"
+          "核心参考：Deng et al., 《On GRPO Collapse in Search-R1: The Lazy Likelihood-Displacement Death Spiral》, arXiv:2512.04220 (2025)。",
+    replace=[(r"新时达A\+B\+C，", ""),
+             (r"为了让你身临其境，我们扮演一下作者，把时间拨回到实验初期。以下是作者脑子里推演的\*\*逻辑必然性链条\*\*：",
+              "以下是该发现背后的逻辑必然性链条："),
+             (r"如果我是作者，我会这样总结我的思考路径：", "可以把这套思考路径总结为：")])
 
 art("post-training/beyond-attention",
     "注意力之外的架构探索",
     [("学习/attention之外.md", None)], "后训练与推理",
-    ["架构", "注意力", "线性注意力"])
+    ["架构", "注意力", "线性注意力"],
+    replace=[(r"你所述条件", "这些条件"),
+             (r"你的逻辑链条非常清晰且自洽", "这条逻辑链条非常清晰且自洽"),
+             (r'你的直觉“更少偏置 = 更通用”在理论上是正确的', '「更少偏置 = 更通用」在理论上是正确的')])
 
 # ============ 强化学习 ============
 art("rl/rl-principles",
@@ -385,7 +401,8 @@ art("ml-theory/math-viewpoint",
     ["机器学习理论", "数学基础", "线性代数", "概率", "初学者"],
     intro="机器学习理论（尤其是泛化界、PAC 框架）常被误以为需要很深的数学。本文先建立「数学工具 ↔ 理论概念」的对应关系："
           "线性代数、概率论、不等式各在理论中扮演什么角色，以及为什么说「换术语」只是表象、底层结构一致。"
-          "帮初学者在正式进入证明前先校准工具箱。")
+          "帮初学者在正式进入证明前先校准工具箱。",
+    replace=[(r"你的直觉非常敏锐，", "")])
 
 art("ml-theory/ch2-world-model-framework",
     "第二章（一）：从世界模型到形式化框架",
@@ -611,8 +628,8 @@ art("surveys/icml-decade",
     "ICML 十年脉络",
     [("论文历史/ICML.md", None)], "领域综述",
     ["ICML", "领域综述"],
-    drops=[(1, 3)],
-    drop_regex=[r"^您说得非常对.*$", r"^\*\*根本性的定位问题\*\*.*$"])
+    drops=[(1, 3), (942, 1232)],
+    replace=[(r"^您的批评击中了要害。", "")])
 
 art("surveys/cvpr-decade",
     "CVPR 十年谈",
@@ -627,13 +644,17 @@ art("surveys/gnn-evolution",
     "图神经网络的演进",
     [("论文历史/图神经网络.md", None)], "领域综述",
     ["图神经网络", "GNN", "领域综述"],
-    drops=[(1, 1)])
+    drops=[(1, 1)],
+    replace=[(r"^好的！", "")])
 
 art("surveys/time-series",
     "时间序列分析：方法脉络与现状",
     [("论文历史/时间序列分析.md", None)], "领域综述",
     ["时间序列", "领域综述"],
-    drops=[(1, 1)])
+    drops=[(1, 1)],
+    replace=[(r"^好的，我已收集到足够的学术文献、综述与大厂技术报告信息。", ""),
+             (r"^好的，基于文献与搜索结果，现在进行系统性深度分析。$",
+              "下面基于文献与搜索结果，做进一步的系统性分析。")])
 
 art("surveys/transfer-learning-tta",
     "迁移学习族谱与 TTA 定位：从定义到大模型时代的生存现状",
@@ -647,7 +668,7 @@ art("surveys/transfer-learning-tta",
 
 art("surveys/nlp-to-llm",
     "从 NLP 到大模型",
-    [("论文历史/NLP.md", None)], "领域综述",
+    [("drafts/nlp-to-llm.md", None)], "领域综述",
     ["NLP", "大模型", "领域综述"])
 
 art("surveys/anti-hallucination",
@@ -734,7 +755,8 @@ art("vlm/benchmarks",
     [("产业/Bench.md", None)], "视觉语言模型",
     ["VLM", "Benchmark", "评测", "Agent"],
     intro="以一篇 VLM 技术报告为线索，梳理视觉编码器、RL 训练、多模态 Agent 各阶段常用的评测基准，"
-          "并归纳出基础感知、跨模态对齐、多模态推理、多模态编码 / 工具使用、端到端 Agent 五大能力维度。")
+          "并归纳出基础感知、跨模态对齐、多模态推理、多模态编码 / 工具使用、端到端 Agent 五大能力维度。",
+    replace=[(r"我来为你梳理", "下面系统梳理")])
 
 art("vlm/architecture-evolution",
     "VLM 融合对齐的架构演进：从 CLIP 到 LLaVA 与原生多模态",
@@ -863,6 +885,18 @@ def clean_callout(m):
     return f"{indent}::: {tag} {title}".rstrip()
 
 
+# 全局润色：把口语化 / 不正式的措辞统一替换为学术化表达
+GLOBAL_REPLACE = [
+    (r"保姆级", "循序渐进"),
+]
+
+
+def apply_global_replace(text):
+    for pat, rep in GLOBAL_REPLACE:
+        text = re.sub(pat, rep, text)
+    return text
+
+
 def clean_text(lines, drop_regex, replace=None):
     out = []
     fm_started = False
@@ -906,6 +940,10 @@ def clean_text(lines, drop_regex, replace=None):
         # 全局剥离 AI 对话导出的检索引用标记
         if RE_TURN_MARK.search(ln):
             ln = RE_TURN_MARK.sub("", ln)
+
+        # 全局润色（口语化 → 学术化）
+        for pat, rep in GLOBAL_REPLACE:
+            ln = re.sub(pat, rep, ln)
 
         # 定点改写（润色措辞 / 脱敏 / 去对话体）
         for pat, rep in (replace or []):
@@ -1099,7 +1137,7 @@ def build():
         # 有人工撰写的 intro 时优先用它做摘要（比机器抽取的首段更凝练）；
         # 否则退回自动抽取。
         if a["intro"]:
-            desc = re.sub(r"\s+", " ", a["intro"]).strip()
+            desc = re.sub(r"\s+", " ", apply_global_replace(a["intro"])).strip()
             if len(desc) > 150:
                 desc = desc[:150].rstrip("，。、；：,;: ") + "……"
         else:
@@ -1122,7 +1160,7 @@ def build():
         content = "\n".join(fm) + "\n\n"
         content += f"# {a['title']}\n\n"
         if a["intro"]:
-            content += f"> {a['intro']}\n\n"
+            content += f"> {apply_global_replace(a['intro'])}\n\n"
         content += body_text + "\n"
         out.write_text(content, encoding="utf-8")
 

@@ -11,7 +11,7 @@ description: "你不需要知道测度论、Kolmogorov 存在性定理的证明�
 
 # 随机微分方程入门：从直觉到量化金融与 Diffusion
 
-## 随机微分方程（SDE）保姆级入门：从直觉到量化金融与Diffusion
+## 随机微分方程（SDE）循序渐进入门：从直觉到量化金融与Diffusion
 
 ### 写在前面：一张全局地图
 

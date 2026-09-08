@@ -6,12 +6,12 @@ tags:
   - "图神经网络"
   - "GNN"
   - "领域综述"
-description: "好的！基于大量已发表论文、综述（如Zhou et al. 2020《图神经网络综述》，Wu et al. 2019《图神经网络综合研究》，Bronstein et al. 2021《几何深度学习》）、顶会论文（ICLR/NeurIPS/ICML/KDD/SIGIR）及工业界技术报告（Pinteres……"
+description: "基于大量已发表论文、综述（如Zhou et al. 2020《图神经网络综述》，Wu et al. 2019《图神经网络综合研究》，Bronstein et al. 2021《几何深度学习》）、顶会论文（ICLR/NeurIPS/ICML/KDD/SIGIR）及工业界技术报告（Pinterest P……"
 ---
 
 # 图神经网络的演进
 
-好的！基于大量已发表论文、综述（如Zhou et al. 2020《图神经网络综述》，Wu et al. 2019《图神经网络综合研究》，Bronstein et al. 2021《几何深度学习》）、顶会论文（ICLR/NeurIPS/ICML/KDD/SIGIR）及工业界技术报告（Pinterest PinSage、Google AlphaFold、DeepMind等），以下是图神经网络（GNN）近十年的完整发展历程：
+基于大量已发表论文、综述（如Zhou et al. 2020《图神经网络综述》，Wu et al. 2019《图神经网络综合研究》，Bronstein et al. 2021《几何深度学习》）、顶会论文（ICLR/NeurIPS/ICML/KDD/SIGIR）及工业界技术报告（Pinterest PinSage、Google AlphaFold、DeepMind等），以下是图神经网络（GNN）近十年的完整发展历程：
 
 ---
 
@@ -389,7 +389,7 @@ GNN的发展深受NLP和CV领域的影响，形成了清晰的**技术迁移路�
 
 > **十年总结**：图神经网络从一个用谱理论做小图分类的冷门方向，历经消息传递的统一、注意力机制的赋能、理论瓶颈的追问、工业界的大规模落地、LLM的深度融合，最终走向驱动蛋白质折叠预测、通用图基础模型的科学与智能双重前沿。**图，是这个世界最自然的语言；GNN，是机器学习它的第一种方式。**
 
-好的！以下是基于已有研究趋势（TPAMI 2025综述、KDD 2025图基础模型报告、VLDB 2025 LLM+Graph研讨会、ICANN 2026等）以及 2026 年最新论文方向的深度预测性年鉴。
+以下是基于已有研究趋势（TPAMI 2025综述、KDD 2025图基础模型报告、VLDB 2025 LLM+Graph研讨会、ICANN 2026等）以及 2026 年最新论文方向的深度预测性年鉴。
 
 ---
 

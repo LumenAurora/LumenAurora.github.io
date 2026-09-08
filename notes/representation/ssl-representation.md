@@ -12,7 +12,7 @@ description: "生成式模型必须是等变（Equivariant） 的（改变输入
 # 自监督表征学习：从零到精通
 
 生成式模型必须是**等变（Equivariant）** 的（改变输入像素，输出必须跟着变），否则无法重建。而 CLIP/DINO/JEPA 追求的是**不变性（Invariance）**（改变颜色、裁剪、视角，表征 zz 应当保持不变）。这种对“变化”的主动丢弃，是生成式模型做不到的。所以这有点类似判别式学习，归类的思想，目前大多用于编码嵌入向量，例如CLIP（对比学习）和DINO（自蒸馏学习）至今一直应用于visual token的生成，RAG的embedding模型也是基于对比学习的。其实说实话就是看需求，学到抽象表征还是具体表征，如果要抽象表征肯定是服务于特定需求、那类似判别式会更好，如果要学到细粒度具体表征重建输入肯定是生成式。
-## Self-Supervised Representation Learning 从零到精通保姆级教程
+## Self-Supervised Representation Learning 从零到精通循序渐进教程
 
 这是一份系统性的长文教程，我会按照"是什么 → 为什么 → 怎么做 → 代表算法 → 实践与前沿"的顺序，把自监督表征学习（Self-Supervised Learning, SSL）讲透。建议先通读一遍框架，再回头细看每个算法的公式与直觉。
 
