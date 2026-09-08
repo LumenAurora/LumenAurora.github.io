@@ -36,4 +36,8 @@ features:
     details: 科研心态与方向、科学哲学、研究品味 —— 关于「为什么做研究」。
     link: /notes/essays/hub
     linkText: 总览
+  - title: 方向地图
+    details: 一份持续更新的 AI 专业学习历程：用「表示」把深度学习、生成模型、RL、表征学习、可解释性收拢到同一条脉络，附自回归里程碑与读论文 / 选方向的实务反思。
+    link: /notes/essays/roadmap
+    linkText: 读我的学习地图
 ---

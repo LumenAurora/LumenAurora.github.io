@@ -351,6 +351,12 @@ export default defineConfig({
                 ],
               },
               {
+                text: '方向地图（从这里开始）',
+                items: [
+                  { text: 'AI 专业学习历程与方向地图', link: '/notes/essays/roadmap' },
+                ],
+              },
+              {
                 text: '科研心态与方向',
                 items: [
                   { text: '如何选择研究方向', link: '/notes/essays/choose-direction' },
