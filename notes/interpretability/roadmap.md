@@ -1,6 +1,6 @@
 ---
 title: "机制可解释性学习路径总览"
-date: 2026-09-07
+date: 2026-09-08
 category: "机制可解释性"
 tags:
   - "可解释性"
@@ -77,3 +77,13 @@ description: "机制可解释性是本站体量最大的一族（28 篇），大
 - **想动手做电路实验**：阶段 0 → 阶段 1 → 阶段 2 的归因图三部曲 + 工具链实践。
 - **做 VLM 可解释性**：阶段 0 → `vlm-seven-axis` → `vlm-learning-roadmap`，再补 `intuition-world-model`。
 - **做扩散模型可解释性**：阶段 0 的线性/特权基基础 → `diffusion-interpretability`。
+
+## 四、相关导读
+
+本站其他导读枢纽，读完本路线后可按需延伸：
+
+- 研究方法论总览 → [研究方法论总览](/notes/methodology/hub)
+- 领域综述导读 → [领域综述导读](/notes/surveys/hub)
+- 机器学习理论精读路径 → [机器学习理论 · 精读路径总览](/notes/ml-theory/roadmap)
+- 随笔总览 → [随笔总览](/notes/essays/hub)
+- 研究品味 → [什么是「有趣」的研究](/notes/research-taste/what-is-interesting)

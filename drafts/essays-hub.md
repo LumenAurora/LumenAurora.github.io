@@ -30,10 +30,20 @@
 
 # 三、和研究方法论的关系
 
-随笔偏"道"与"心态"，方法论偏"术"与"流程"。建议搭配：方向焦虑 → 本页线 A；具体怎么做 → [研究方法论总览](/notes/methodology/hub)；选题品味 → 顶部导航「研究品味」。
+随笔偏"道"与"心态"，方法论偏"术"与"流程"。建议搭配：方向焦虑 → 本页线 A；具体怎么做 → [研究方法论总览](/notes/methodology/hub)；选题品味 → [研究品味](/notes/research-taste/what-is-interesting)（同一主题的「道」）。
 
 # 四、如果你只想挑一篇
 
 - 纠结方向 → `choose-direction`。
 - 怀疑自己工作有没有价值 → `what-counts-as-research`。
 - 想理解 AI 研究的哲学底色 → `science-vs-engineering` + `bitter-lesson-inductive-bias`。
+
+# 五、相关导读
+
+本站其他导读枢纽，按需跳读：
+
+- 机制可解释性学习路径 → [机制可解释性 · 学习路径总览](/notes/interpretability/roadmap)
+- 研究方法论总览（随笔的「术」）→ [研究方法论总览](/notes/methodology/hub)
+- 领域综述导读 → [领域综述导读](/notes/surveys/hub)
+- 机器学习理论精读路径 → [机器学习理论 · 精读路径总览](/notes/ml-theory/roadmap)
+- 研究品味 → [什么是「有趣」的研究](/notes/research-taste/what-is-interesting)

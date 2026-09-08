@@ -1,6 +1,6 @@
 ---
 title: "机器学习理论精读路径总览"
-date: 2026-09-07
+date: 2026-09-08
 category: "机器学习理论"
 tags:
   - "机器学习理论"
@@ -67,3 +67,13 @@ description: "机器学习理论这 17 篇是对一本 Understanding ML 类教�
 ## 四、配套数学笔记
 
 若想补随机过程 / 扩散模型一侧的数学，见 [随机微分方程入门](/notes/math/sde-primer)、[学习理论的数学](/notes/math/math-for-learning)、[深度学习中的数学概念解读](/notes/math/math-interpretation)。
+
+## 五、相关导读
+
+本站其他导读枢纽：
+
+- 机制可解释性学习路径 → [机制可解释性 · 学习路径总览](/notes/interpretability/roadmap)
+- 研究方法论总览 → [研究方法论总览](/notes/methodology/hub)
+- 领域综述导读 → [领域综述导读](/notes/surveys/hub)
+- 随笔总览 → [随笔总览](/notes/essays/hub)
+- 研究品味 → [什么是「有趣」的研究](/notes/research-taste/what-is-interesting)

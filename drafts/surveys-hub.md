@@ -33,3 +33,13 @@
 
 - 机制方向的纵向精读见 [机器学习理论 · 导读](/notes/ml-theory/roadmap)；
 - 可解释性方向的纵贯见 [机制可解释性 · 学习路径总览](/notes/interpretability/roadmap)。
+
+# 五、相关导读
+
+本站其他导读枢纽：
+
+- 机制可解释性学习路径 → [机制可解释性 · 学习路径总览](/notes/interpretability/roadmap)
+- 研究方法论总览 → [研究方法论总览](/notes/methodology/hub)
+- 机器学习理论精读路径 → [机器学习理论 · 精读路径总览](/notes/ml-theory/roadmap)
+- 随笔总览 → [随笔总览](/notes/essays/hub)
+- 研究品味 → [什么是「有趣」的研究](/notes/research-taste/what-is-interesting)
