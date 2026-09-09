@@ -137,7 +137,7 @@ $$[\text{source}] \dots [\text{destination}] \to [\text{out}].$$
 
 ### 七、为什么端点可解释、中间不可解释也没关系
 
-现在可以正面回答你的困惑了。一条路径长这样：
+现在可以正面回答这一困惑了。一条路径长这样：
 
 $$\text{token} \xrightarrow{W_E} \text{残差流} \xrightarrow{W_V^h} \text{value 向量} \xrightarrow{A^h} \text{搬运后的 result} \xrightarrow{W_O^h} \text{残差流} \xrightarrow{W_U} \text{logits}.$$
 

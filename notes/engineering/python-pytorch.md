@@ -50,7 +50,7 @@ OpenMPI是构建大规模并行应用程序的“通信骨架”，它让成百�
 | `from torch.utils.data import TensorDataset` | 数据集打包工具 | 把特征张量和标签张量**一一对应打包**，让每个样本都带着自己的标签 | 把“苹果（特征x）”和“苹果的价格（标签y）”一对一装在小袋子里，确保不会搞混 |
 | `from torch.utils.data import DataLoader` | 数据加载器 | 把打包好的数据集拆成**小批次（batch）**，支持打乱顺序、并行加载 | 把装着苹果的小袋子分成一箱箱（每个箱子16个，对应 `batch_size=16`），还能把箱子顺序打乱，方便模型“分批吃苹果” |
 | `import torch.nn as nn` | 神经网络层库 | 提供各种预定义的神经网络层（比如线性层 `Linear`、卷积层等） | 相当于“模型零件库”，你之前用的 `nn.Linear` 就是这里的线性回归零件 |
-| `import torch.optim as optim` | 优化器库 | 提供各种参数优化算法（比如SGD、Adam等） | 相当于“模型调参的扳手”，帮你把模型的权重和偏置往损失更小的方向调整 |
+| `import torch.optim as optim` | 优化器库 | 提供各种参数优化算法（比如SGD、Adam等） | 相当于“模型调参的扳手”，帮助读者把模型的权重和偏置往损失更小的方向调整 |
 
 ---
 

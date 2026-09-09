@@ -281,7 +281,7 @@ git clone https://github.com/anthropics/circuit-explainer ( hypothetical)
 ## 或者在小型模型上自己训练
 ```
 
-**Week 3-4: 训练你的第一个Transcoder**
+**Week 3-4: 训练第一个 Transcoder**
 ```python
 ## 参考教程: https://learnmechinterp.com/topics/transcoders
 ## 数据: 80亿激活样本 (可用WikiText缓存)
@@ -321,12 +321,11 @@ $$w_{i \to j} = \frac{\partial (\text{output})}{\partial f_i} \cdot \frac{\parti
 
 ---
 
-希望这份**技术框架级别的深度解析**帮助你理解Anthropic可解释性系统的**工程本质**！这不是魔法，而是一套精密的**数学替换+自动微分+因果验证**流水线。每一个组件——从CLT到归因图到QK attribution——都是为了把dense、mixed的原始计算转化为sparse、interpretable的特征级电路。
+希望这份**技术框架级别的深度解析**有助于理解Anthropic可解释性系统的**工程本质**！这不是魔法，而是一套精密的**数学替换+自动微分+因果验证**流水线。每一个组件——从CLT到归因图到QK attribution——都是为了把dense、mixed的原始计算转化为sparse、interpretable的特征级电路。
 
-如果你对某个具体技术细节（比如CLT训练的tricks、Jacobian tracing的高效实现、或者QK diagonalization的最新进展）感兴趣，我可以继续深入展开！
 ## 归因图
 我们先严格定义一下，消除模糊性。
 
-你提到的“归因图”，在机制可解释性中通常是一个**有向无环图（DAG）**。它的节点和边不是随便画的，而是直接来源于**对模型内部激活的因果测量**。下面我拆解成最严格、最具体的组成单位。
+前文提到的“归因图”，在机制可解释性中通常是一个**有向无环图（DAG）**。它的节点和边不是随便画的，而是直接来源于**对模型内部激活的因果测量**。下面把它拆解成最严格、最具体的组成单位。
 
 ---

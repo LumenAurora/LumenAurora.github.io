@@ -457,7 +457,7 @@ SimSiam的贡献是消融实验：它证明了BYOL里的动量编码器（EMA ta
 
 DINO把BYOL的"在线-目标"架构改造成了显式的"学生-教师（student-teacher）"自蒸馏框架：学生网络和教师网络（EMA更新，同MoCo/BYOL血统）分别处理同一张图的不同裁剪视图，输出经过softmax归一化成一个概率分布，损失是两者输出分布之间的交叉熵（跟知识蒸馏的形式一样，只是"教师"和"学生"是同一个网络的不同历史平均版本）。DINO防止坍缩靠两个技巧：**centering**（把教师的输出减去一个滑动平均的中心，防止某一维度独占输出）和**sharpening**（教师侧用更低的softmax温度，让输出分布更尖锐、更有区分度），二者共同起到了类似"batch normalization + equipartition约束"的平衡作用。DINO最大的意外发现是：用ViT做backbone训练出的自注意力图，无监督地涌现出了清晰的物体分割边界，这是它区别于此前所有方法的标志性成果。
 
-**这正是你说"JEPA架构像DINO"的根源**：I-JEPA的context encoder/target encoder结构，与DINO的student/teacher结构，都直接继承自MoCo开创的"在线网络+EMA教师网络+stop-gradient"这套骨架，只是DINO是在**同一张图的不同增强视图**之间做自蒸馏，而I-JEPA是在**同一张图的不同空间区域**（context block预测target block）之间做latent空间的回归，二者是同一套防坍缩工程学在不同任务设定下的两次应用。
+**这正是前文所述："JEPA架构像DINO"的根源**：I-JEPA的context encoder/target encoder结构，与DINO的student/teacher结构，都直接继承自MoCo开创的"在线网络+EMA教师网络+stop-gradient"这套骨架，只是DINO是在**同一张图的不同增强视图**之间做自蒸馏，而I-JEPA是在**同一张图的不同空间区域**（context block预测target block）之间做latent空间的回归，二者是同一套防坍缩工程学在不同任务设定下的两次应用。
 
 ### 7.2 DINOv2
 

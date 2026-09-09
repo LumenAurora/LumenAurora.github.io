@@ -76,7 +76,7 @@ The central claim is quite expected and incremental relative to existing literat
 
 ### 四、从选题和 Storyline 设计阶段预判水平的实操框架
 
-把 storyline 拆成你说的三段：**现象（What）→ 动机/原因（Why）→ 方法（How）**，每一段都对应一个可以提前自问的诊断问题，组合起来大致能预判"如果做成，天花板在哪"。
+把 storyline 拆成前文所述的三段：**现象（What）→ 动机/原因（Why）→ 方法（How）**，每一段都对应一个可以提前自问的诊断问题，组合起来大致能预判"如果做成，天花板在哪"。
 
 #### 1. 现象层（What）——决定 Originality 与 Significance 的地基
 - **反直觉程度**：现象是否挑战了领域内一个被广泛接受的假设？（能上升到"挑战常识"级别的，是Oral/Outstanding候选；只是"填补空白"级别的，天花板通常是Poster/Spotlight）
@@ -101,7 +101,7 @@ The central claim is quite expected and incremental relative to existing literat
 - **现象中等/普适 + 原因有机制解释 + 方法有一定通用性** → Spotlight 水平
 - **现象反直觉且普适 + 原因触及领域共性痛点且可证伪 + 方法简洁通用/理论实验自洽** → Oral 水平，具备冲击 Outstanding 的**必要条件**（但最终能否拿奖还取决于committee主观的"洞察力、创造性"评判，以及当年主题多样性配额等偶然因素）
 
-需要强调的是，Outstanding Paper 的最终裁定带有相当程度的**委员会主观校准和年度配额平衡**（如论文被明确纳入八大主题领域，以补偿领域间标准差异并确保每个主题都有一定代表性），所以选题和storyline设计只能帮你判断"论文本身能到达的质量天花板"，而最终奖项还叠加了**运气、当年赛道竞争格局、评审校准误差**等无法在设计阶段完全控制的因素。这也是为什么学界对Outstanding Paper评选过程本身也存在不少争议和讨论。
+需要强调的是，Outstanding Paper 的最终裁定带有相当程度的**委员会主观校准和年度配额平衡**（如论文被明确纳入八大主题领域，以补偿领域间标准差异并确保每个主题都有一定代表性），所以选题和storyline设计只能帮助读者判断"论文本身能到达的质量天花板"，而最终奖项还叠加了**运气、当年赛道竞争格局、评审校准误差**等无法在设计阶段完全控制的因素。这也是为什么学界对Outstanding Paper评选过程本身也存在不少争议和讨论。
 ## ICLR/NeurIPS/ICML 等 AI 顶会审稿人批评角度系统梳理
 
 结合各大顶会官方评审指南（ICLR、ICML、NeurIPS）及相关实证研究，可将审稿人对论文的批评角度系统归纳为以下几个层次：**官方评审维度 → 具体批评子方向 → 元层面审稿问题**。
