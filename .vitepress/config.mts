@@ -80,6 +80,7 @@ export default defineConfig({
       { text: '研究方法', link: '/notes/methodology/hub' },
       { text: '领域纵览', link: '/notes/surveys/hub' },
       { text: '思考', link: '/notes/essays/hub' },
+      { text: '精选', link: '/notes/essays/featured' },
       { text: '归档', link: '/archive' },
       { text: '关于', link: '/about' },
     ],
@@ -404,6 +405,27 @@ export default defineConfig({
         items: [
           { text: 'Python 与 PyTorch 工程基础', link: '/notes/engineering/python-pytorch' },
           { text: 'AI 在金融领域的非平稳性难题', link: '/notes/engineering/ai-in-finance' },
+        ],
+      },
+      {
+        text: '🌟 精选',
+        collapsed: false,
+        items: [
+          {
+            text: '精选 · 导读',
+            items: [
+              { text: '精选：第一档价值文章', link: '/notes/essays/featured' },
+            ],
+          },
+          {
+            text: '收录文章',
+            items: [
+              { text: '科学研究：是什么、为什么、怎么做', link: '/notes/essays/scientific-research' },
+              { text: '路在何方', link: '/notes/essays/path-forward' },
+              { text: '自回归大模型的内部机制', link: '/notes/representation/autoregressive-internals' },
+              { text: 'Benchmark 论文写作', link: '/notes/methodology/benchmark-writing' },
+            ],
+          },
         ],
       },
     ],
