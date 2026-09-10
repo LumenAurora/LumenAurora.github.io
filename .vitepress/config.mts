@@ -361,7 +361,7 @@ export default defineConfig({
                 text: '科研心态与方向',
                 items: [
                   { text: '如何选择研究方向', link: '/notes/essays/choose-direction' },
-                  { text: '路在何方', link: '/notes/essays/path-forward' },
+                  { text: '先路', link: '/notes/essays/roadmap' },
                   { text: '顶会论文该怎么读', link: '/notes/essays/research-judgment' },
                   { text: '什么才算真正的科研贡献', link: '/notes/essays/what-counts-as-research' },
                   { text: '复利思想与研究壁垒', link: '/notes/essays/hamming-compound' },
@@ -421,7 +421,7 @@ export default defineConfig({
             text: '收录文章',
             items: [
               { text: '科学研究：是什么、为什么、怎么做', link: '/notes/essays/scientific-research' },
-              { text: '路在何方', link: '/notes/essays/path-forward' },
+              { text: '先路', link: '/notes/essays/roadmap' },
               { text: '自回归大模型的内部机制', link: '/notes/representation/autoregressive-internals' },
               { text: 'Benchmark 论文写作', link: '/notes/methodology/benchmark-writing' },
             ],
