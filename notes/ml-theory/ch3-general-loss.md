@@ -1,6 +1,6 @@
 ---
 title: "第三章（四）：General Loss 抽象化与 Proper/Improper Learning"
-date: 2026-09-07
+date: 2026-09-11
 category: "机器学习理论"
 tags:
   - "机器学习理论"

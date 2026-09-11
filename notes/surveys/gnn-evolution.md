@@ -1,16 +1,17 @@
 ---
 title: "图神经网络的演进"
-date: 2026-05-28
+date: 2026-09-11
 category: "领域综述"
 tags:
   - "图神经网络"
   - "GNN"
   - "领域综述"
-description: "基于大量已发表论文、综述（如Zhou et al. 2020《图神经网络综述》，Wu et al. 2019《图神经网络综合研究》，Bronstein et al. 2021《几何深度学习》）、顶会论文（ICLR/NeurIPS/ICML/KDD/SIGIR）及工业界技术报告（Pinterest P……"
+description: "GNN最早最重要的作用是嫁接NLP和CV，前者是时序数据用RNN、后者是栅格化的空间数据用CNN，为了同时利用二者的信息，将图作为抽象层，不过这个功能被VLM取代了。 基于大量已发表论文、综述（如Zhou et al. 2020《图神经网络综述》，Wu et al. 2019《图神经网络综合研究》……"
 ---
 
 # 图神经网络的演进
 
+GNN最早最重要的作用是嫁接NLP和CV，前者是时序数据用RNN、后者是栅格化的空间数据用CNN，为了同时利用二者的信息，将图作为抽象层，不过这个功能被VLM取代了。
 基于大量已发表论文、综述（如Zhou et al. 2020《图神经网络综述》，Wu et al. 2019《图神经网络综合研究》，Bronstein et al. 2021《几何深度学习》）、顶会论文（ICLR/NeurIPS/ICML/KDD/SIGIR）及工业界技术报告（Pinterest PinSage、Google AlphaFold、DeepMind等），以下是图神经网络（GNN）近十年的完整发展历程：
 
 ---

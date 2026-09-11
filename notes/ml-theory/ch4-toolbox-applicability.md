@@ -1,6 +1,6 @@
 ---
 title: "第四章（五）：证明工具箱与 Uniform Convergence 的适用边界"
-date: 2026-09-07
+date: 2026-09-11
 category: "机器学习理论"
 tags:
   - "机器学习理论"

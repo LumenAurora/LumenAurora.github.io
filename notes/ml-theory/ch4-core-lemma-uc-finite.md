@@ -1,6 +1,6 @@
 ---
 title: "第四章（二）：核心引理、Uniform Convergence 定义与有限类证明"
-date: 2026-09-07
+date: 2026-09-11
 category: "机器学习理论"
 tags:
   - "机器学习理论"

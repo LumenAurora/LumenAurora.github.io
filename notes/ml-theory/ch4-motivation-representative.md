@@ -1,6 +1,6 @@
 ---
 title: "第四章（一）：动机与 ε-representative sample"
-date: 2026-09-07
+date: 2026-09-11
 category: "机器学习理论"
 tags:
   - "机器学习理论"

@@ -424,6 +424,7 @@ export default defineConfig({
               { text: '先路', link: '/notes/essays/roadmap' },
               { text: '自回归大模型的内部机制', link: '/notes/representation/autoregressive-internals' },
               { text: 'Benchmark 论文写作', link: '/notes/methodology/benchmark-writing' },
+              { text: 'AI 的范式革新', link: '/notes/essays/future-ai-paradigms' },
             ],
           },
         ],

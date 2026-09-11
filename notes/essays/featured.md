@@ -1,6 +1,6 @@
 ---
 title: "精选"
-date: 2026-09-10
+date: 2026-09-11
 category: "随笔"
 tags:
   - "精选"
@@ -21,5 +21,6 @@ description: "这几篇是我写得最用心、也自认为价值最高的一组
 - **[先路](./roadmap)** —— 关于「怎么选研究方向」的系统性框架：不要求先懂一切，也不要求读海量论文，目标是用可控成本获得足够确定性。
 - **[自回归大模型的内部机制](/notes/representation/autoregressive-internals)** —— 深入自回归 LM 的预训练、中训练（Mid-training）与后训练（SFT / RLHF）阶段，以及模型内部到底在计算什么。
 - **[Benchmark 论文写作](/notes/methodology/benchmark-writing)** —— 「分析类如何有趣」：把 benchmark 类论文的完整生命周期拆开，从选题立意到论文写作逐一讲透。
+- **[AI 的范式革新](./future-ai-paradigms)** —— 从目标与模态（文本 / 视觉物理 / 数据三种中心范式）到训练范式（持续学习），梳理 AI 正在发生的底层革新。
 
 > 这一栏会随写作持续推进——若再有自认为值得反复读的文章，会接着补进来。

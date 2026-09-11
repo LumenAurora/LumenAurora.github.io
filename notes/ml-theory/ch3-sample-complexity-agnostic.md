@@ -1,6 +1,6 @@
 ---
 title: "第三章（二）：Sample Complexity 与 Agnostic PAC"
-date: 2026-09-07
+date: 2026-09-11
 category: "机器学习理论"
 tags:
   - "机器学习理论"

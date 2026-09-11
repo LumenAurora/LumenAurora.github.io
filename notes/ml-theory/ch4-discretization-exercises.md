@@ -1,6 +1,6 @@
 ---
 title: "第四章（六）：Discretization、习题与极限压缩"
-date: 2026-09-07
+date: 2026-09-11
 category: "机器学习理论"
 tags:
   - "机器学习理论"
