@@ -13,8 +13,8 @@ hero:
       text: 研究方法论
       link: /notes/methodology/hub
     - theme: alt
-      text: 关于
-      link: /about
+      text: 关于我
+      link: /about-me
 features:
   - title: 机制可解释性
     details: 归因图、特征分解、SAE、注意力与因果干预 —— 把黑箱拆开来看。28 篇带完整阅读路线。

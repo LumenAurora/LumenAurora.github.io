@@ -1,11 +1,11 @@
 ---
-title: 关于
+title: 关于本博客
 layout: page
 ---
 
-# 关于
+# 关于本博客
 
-你好，我是 **Changning Liu**（刘昌宁），一名人工智能专业的学生，也做一些 AI 研究，方向是**机制可解释性**（Mechanistic Interpretability）与物理智能。
+这是一个基于个人笔记整理的学习型博客，主要记录我在 AI 方向的学习、研究方法论与阶段性思考。更多关于我个人的价值观与做事方式，见 [关于我](/about-me)。
 
 ## 我关注什么
 
@@ -22,5 +22,6 @@ layout: page
 ## 链接
 
 - GitHub：[LumenAurora](https://github.com/LumenAurora)
+- 关于我：见 [关于我](/about-me)
 
 > 本站点基于 [VitePress](https://vitepress.dev/) 构建，部署于 GitHub Pages。

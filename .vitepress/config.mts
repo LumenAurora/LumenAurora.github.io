@@ -76,13 +76,14 @@ export default defineConfig({
     // 顶层导航：分组级入口，指向各导读枢纽页，避免与侧边栏重复罗列
     nav: [
       { text: '首页', link: '/' },
+      { text: '关于我', link: '/about-me' },
       { text: '研究主题', link: '/notes/interpretability/roadmap' },
       { text: '研究方法', link: '/notes/methodology/hub' },
       { text: '领域纵览', link: '/notes/surveys/hub' },
       { text: '思考', link: '/notes/essays/hub' },
       { text: '精选', link: '/notes/essays/featured' },
       { text: '归档', link: '/archive' },
-      { text: '关于', link: '/about' },
+      { text: '关于本博客', link: '/about' },
     ],
 
     // 全站共享的单一侧边栏：5 个一级组覆盖 13 个原分类，
