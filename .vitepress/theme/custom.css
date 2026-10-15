@@ -218,3 +218,104 @@
     font-size: 27px;
   }
 }
+
+/* ============================================================
+   「关于我」页面 —— 随笔/书页式排版
+   衬线字体 · 首行缩进 · 分节装饰符
+   ============================================================ */
+
+.page-about-me .vp-doc {
+  font-family: 'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', 'STSong',
+    'SimSun', Georgia, 'Times New Roman', serif;
+  font-size: 16.5px;
+  line-height: 2.05;
+  letter-spacing: 0.03em;
+  max-width: 46rem;
+  margin: 0 auto;
+  text-align: justify;
+}
+
+/* 标题也用衬线，居中，营造书页感 */
+.page-about-me .vp-doc h1 {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  margin: 1rem 0 0.4rem;
+}
+
+.page-about-me .vp-doc h1::after {
+  content: '';
+  display: block;
+  width: 2.4rem;
+  height: 2px;
+  background: var(--vp-c-brand-1);
+  margin: 1.2rem auto 0;
+  border-radius: 1px;
+}
+
+.page-about-me .vp-doc h2 {
+  font-size: 1.32rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  margin: 3rem 0 0.3rem;
+  border-top: none;
+  padding-top: 0;
+}
+
+/* 首行缩进 2 字符（中文书页惯例）；列表、引用块、提示块除外 */
+.page-about-me .vp-doc p {
+  margin: 1.1rem 0;
+  text-indent: 2em;
+}
+
+.page-about-me .vp-doc li p,
+.page-about-me .vp-doc blockquote p,
+.page-about-me .vp-doc .custom-block p {
+  text-indent: 0;
+}
+
+/* 分节装饰符：两侧细线 + 居中符号 */
+.page-about-me .ornament {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin: 2.4rem auto;
+  color: var(--vp-c-brand-1);
+  opacity: 0.55;
+}
+
+.page-about-me .ornament::before,
+.page-about-me .ornament::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--vp-c-divider),
+    transparent
+  );
+}
+
+.page-about-me .ornament span {
+  font-size: 0.8rem;
+  line-height: 1;
+}
+
+/* 开篇段落（紧跟 h1）不缩进，更像文章引子 */
+.page-about-me .vp-doc h1 + p {
+  text-indent: 0;
+  font-size: 1.05em;
+  color: var(--vp-c-text-1);
+}
+
+@media (max-width: 640px) {
+  .page-about-me .vp-doc {
+    font-size: 15.5px;
+    line-height: 1.95;
+  }
+  .page-about-me .vp-doc h1 {
+    font-size: 1.7rem;
+  }
+}
