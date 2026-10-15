@@ -1,6 +1,9 @@
 ---
 title: 关于我
-layout: page
+layout: doc
+sidebar: false
+aside: false
+outline: false
 pageClass: page-about-me
 ---
 

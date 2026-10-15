@@ -221,51 +221,73 @@
 
 /* ============================================================
    「关于我」页面 —— 随笔/书页式排版
-   衬线字体 · 首行缩进 · 分节装饰符
+   自托管思源宋体（可变字重）· 首行缩进 · 分节装饰符
+   注意：该页 layout: doc，内容容器带 .vp-doc 类，
+   pageClass 挂在 Layout 根节点上。
    ============================================================ */
 
+.page-about-me .VPDoc .content {
+  max-width: 100%;
+}
+
 .page-about-me .vp-doc {
-  font-family: 'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', 'STSong',
-    'SimSun', Georgia, 'Times New Roman', serif;
-  font-size: 16.5px;
-  line-height: 2.05;
+  font-family: 'Noto Serif SC Variable', 'Noto Serif SC', 'Source Han Serif SC',
+    'Songti SC', 'STSong', Georgia, 'Times New Roman', serif;
+  font-size: 17px;
+  line-height: 2.1;
   letter-spacing: 0.03em;
-  max-width: 46rem;
+  max-width: 44rem;
   margin: 0 auto;
   text-align: justify;
+  text-justify: inter-ideograph;
+}
+
+/* 隐藏该页的编辑链接 / 最后更新 / 上下页导航，保持整页纯净 */
+.page-about-me .VPDocFooter {
+  display: none;
 }
 
 /* 标题也用衬线，居中，营造书页感 */
 .page-about-me .vp-doc h1 {
   text-align: center;
-  font-size: 2rem;
+  font-size: 2.1rem;
   font-weight: 600;
-  letter-spacing: 0.12em;
-  margin: 1rem 0 0.4rem;
+  letter-spacing: 0.18em;
+  text-indent: 0.18em; /* 抵消字距，视觉居中 */
+  margin: 1.5rem 0 0.2rem;
+  line-height: 1.4;
 }
 
 .page-about-me .vp-doc h1::after {
   content: '';
   display: block;
-  width: 2.4rem;
-  height: 2px;
+  width: 3rem;
+  height: 1.5px;
   background: var(--vp-c-brand-1);
-  margin: 1.2rem auto 0;
+  margin: 1.4rem auto 0;
   border-radius: 1px;
 }
 
 .page-about-me .vp-doc h2 {
-  font-size: 1.32rem;
+  text-align: center;
+  font-size: 1.3rem;
   font-weight: 600;
-  letter-spacing: 0.05em;
-  margin: 3rem 0 0.3rem;
+  letter-spacing: 0.08em;
+  margin: 0.4rem 0 1.4rem;
   border-top: none;
+  border-bottom: none;
   padding-top: 0;
+  line-height: 1.5;
+}
+
+/* 隐藏标题悬停锚点，避免破坏居中 */
+.page-about-me .vp-doc .header-anchor {
+  display: none;
 }
 
 /* 首行缩进 2 字符（中文书页惯例）；列表、引用块、提示块除外 */
 .page-about-me .vp-doc p {
-  margin: 1.1rem 0;
+  margin: 1.15rem 0;
   text-indent: 2em;
 }
 
@@ -275,14 +297,20 @@
   text-indent: 0;
 }
 
-/* 分节装饰符：两侧细线 + 居中符号 */
+/* 开篇段落（紧跟 h1）不缩进，作为文章引子 */
+.page-about-me .vp-doc h1 + p {
+  text-indent: 0;
+  font-size: 1.04em;
+  color: var(--vp-c-text-1);
+}
+
+/* 分节装饰符：细线 + 居中符号（位于 h2 之前） */
 .page-about-me .ornament {
   display: flex;
   align-items: center;
-  gap: 0.9rem;
-  margin: 2.4rem auto;
+  gap: 1.1rem;
+  margin: 3.2rem auto 0.6rem;
   color: var(--vp-c-brand-1);
-  opacity: 0.55;
 }
 
 .page-about-me .ornament::before,
@@ -293,29 +321,48 @@
   background: linear-gradient(
     90deg,
     transparent,
-    var(--vp-c-divider),
+    var(--vp-c-divider) 30%,
+    var(--vp-c-divider) 70%,
     transparent
   );
 }
 
 .page-about-me .ornament span {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   line-height: 1;
+  transform: rotate(45deg);
+  opacity: 0.8;
 }
 
-/* 开篇段落（紧跟 h1）不缩进，更像文章引子 */
-.page-about-me .vp-doc h1 + p {
-  text-indent: 0;
-  font-size: 1.05em;
-  color: var(--vp-c-text-1);
+/* 强调词微微提色，衬托衬线质感 */
+.page-about-me .vp-doc strong {
+  font-weight: 700;
+  color: var(--vp-c-brand-3);
+}
+
+.dark .page-about-me .vp-doc strong {
+  color: var(--vp-c-brand-1);
+}
+
+.page-about-me .vp-doc a {
+  text-decoration: none;
+  border-bottom: 1px solid var(--vp-c-brand-soft);
+  transition: border-color 0.2s;
+}
+
+.page-about-me .vp-doc a:hover {
+  border-bottom-color: var(--vp-c-brand-1);
 }
 
 @media (max-width: 640px) {
   .page-about-me .vp-doc {
     font-size: 15.5px;
-    line-height: 1.95;
+    line-height: 2;
   }
   .page-about-me .vp-doc h1 {
     font-size: 1.7rem;
+  }
+  .page-about-me .vp-doc h2 {
+    font-size: 1.18rem;
   }
 }
